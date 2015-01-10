@@ -1,6 +1,3 @@
-<!--
-To change this template use Tools | Templates.
--->
 <!DOCTYPE html>
 <html ng-app="ngBootstrapizeMaven">
   <head>
@@ -11,8 +8,9 @@ To change this template use Tools | Templates.
     <title>Test Angular Material</title>
 
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/xcode.min.css">
     
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
     <base href="/">
   </head>
   
@@ -27,25 +25,7 @@ To change this template use Tools | Templates.
         </div>
       </header>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-4 main-navigation" ng-controller="NaviCtrl">
-          <div  data-spy="affix" data-offset-top="170"  data-offset="50">
-            <div ng-repeat="element in elements" ng-bind-html="element" ng-show="visibility[$index]" ng-click="toggleCollapse($index)">
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-lg-6 col-md-8 main-body" ng-controller="ContentCtrl">
-          <div ng-repeat="element in elements" ng-bind-html="element">
-          </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-8 col-md-offset-4 col-lg-offset-0 download-navigation" ng-controller="DownloadCtrl">
-              <div ng-repeat="element in elements" ng-class="visibility[$index] ? '' : 'collapsed'" ng-bind-html="element"
-                    ng-click="toggleCollapse($index)"></div>
-        </div>
-      </div>
+    <div class="container" ng-include="pagePresentation">
     </div>
     <footer ng-controller="FooterCtrl">
       <div class="container">
@@ -66,9 +46,14 @@ To change this template use Tools | Templates.
     <script type="text/javascript" src="/js/external/angular-aria.js"></script>
     <script type="text/javascript" src="/js/external/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="/js/external/affix.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/8.4/highlight.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/8.4.0/languages/1c.min.js"></script>
+    
 <!--     <script type="text/javascript" src="//rawgit.com/hammerjs/hammer.js/master/hammer.js"></script>
     <script type="text/javascript" src="//rawgit.com/olivernn/lunr.js/master/lunr.js"></script>
      -->
     <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/default.js"></script>
+    <script type="text/javascript" src="/js/jxr.js"></script>
   </body>
 </html>
