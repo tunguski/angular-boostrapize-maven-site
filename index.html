@@ -1,0 +1,74 @@
+<!--
+To change this template use Tools | Templates.
+-->
+<!DOCTYPE html>
+<html ng-app="ngBootstrapizeMaven">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Test Angular Material</title>
+
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    
+    <base href="/">
+  </head>
+  
+  <body ng-controller="AppCtrl">
+    <div class="container">
+      <header class="project-header">
+        <div class="row">
+          <div class="col-sm-8 col-md-offset-4 col-lg-offset-3">
+            <a href="/"><h1>Apache Maven</h1></a>
+            <span ng-bind="lastPublished"></span>
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-4 main-navigation" ng-controller="NaviCtrl">
+          <div  data-spy="affix" data-offset-top="170"  data-offset="50">
+            <div ng-repeat="element in elements" ng-bind-html="element" ng-show="visibility[$index]" ng-click="toggleCollapse($index)">
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6 col-md-8 main-body" ng-controller="ContentCtrl">
+          <div ng-repeat="element in elements" ng-bind-html="element">
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-8 col-md-offset-4 col-lg-offset-0 download-navigation" ng-controller="DownloadCtrl">
+              <div ng-repeat="element in elements" ng-class="visibility[$index] ? '' : 'collapsed'" ng-bind-html="element"
+                    ng-click="toggleCollapse($index)"></div>
+        </div>
+      </div>
+    </div>
+    <footer ng-controller="FooterCtrl">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-8 col-md-offset-4 col-lg-offset-3" ng-bind-html="footerHtml">
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+<!--     <iframe src="//maven.matsuo-it.com/maven/" class="hidden"></iframe> -->
+    
+    <script type="text/javascript" src="/js/external/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/external/angular.js"></script>
+    <script type="text/javascript" src="/js/external/angular-sanitize.js"></script>
+    <script type="text/javascript" src="/js/external/angular-route.js"></script>
+    <script type="text/javascript" src="/js/external/angular-animate.js"></script>
+    <script type="text/javascript" src="/js/external/angular-aria.js"></script>
+    <script type="text/javascript" src="/js/external/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/js/external/affix.js"></script>
+<!--     <script type="text/javascript" src="//rawgit.com/hammerjs/hammer.js/master/hammer.js"></script>
+    <script type="text/javascript" src="//rawgit.com/olivernn/lunr.js/master/lunr.js"></script>
+     -->
+    <script type="text/javascript" src="/js/main.js"></script>
+  </body>
+</html>

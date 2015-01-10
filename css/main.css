@@ -1,0 +1,135 @@
+
+*:focus {
+    outline: none;
+}
+
+a {
+  transition: all 0.5s ease;
+}
+
+
+
+/* wtf ??? */
+
+table.table {
+  font-size: 90%;
+  border-width: 0;
+}
+
+table.table td, table.table th {
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+}
+
+table.table tbody tr th {
+  border-top-width: 0;
+}
+
+
+/* project-header */
+
+header.project-header {
+  font-style: italic;
+  margin: 40px 0;
+  color: #666;
+}
+
+header.project-header a {
+  color: #999;
+  text-decoration: none;
+}
+
+header.project-header a:hover {
+  color: rgb(51, 122, 183);
+}
+
+header.project-header span {
+  color: #bbb;
+}
+
+
+/* main-navigation */
+
+.main-navigation {
+  font-size: 85%;
+  color: #bbb;
+  margin-top: 20px;
+  transition: all 0.5s ease;
+  margin-bottom: 60px;
+}
+
+
+.main-navigation ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.main-navigation:not(:hover) a {
+  color: #bbb;
+}
+
+.main-navigation:hover {
+  color: #333;
+}
+
+.main-navigation > div:nth-child(odd) {
+  cursor: pointer;
+}
+
+
+/* main-body */
+
+.main-body {
+  text-align: justify;
+}
+
+
+/* download-navigation */
+
+.download-navigation {
+  font-size: 85%;
+  color: #bbb;
+  margin-top: 20px;
+  transition: all 0.5s ease;
+}
+
+.download-navigation:not(:hover) a {
+  color: #bbb;
+}
+
+.download-navigation:hover {
+  color: #333;
+}
+
+.download-navigation a:not([href*='foundation']) {
+  white-space: nowrap
+}
+
+.download-navigation .collapsed > .section > * {
+  display: none;
+}
+
+.download-navigation .collapsed > .section > h5 {
+  display: block;
+}
+
+.download-navigation .section > * {
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.download-navigation .section > h5 {
+  padding-left: 0;
+  cursor: pointer;
+}
+
+
+/* footer */
+
+footer {
+  color: #bbb;
+  margin: 60px 0;
+}
+
+
