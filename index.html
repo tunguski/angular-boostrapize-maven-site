@@ -14,27 +14,46 @@
     <base href="/">
   </head>
   
+  
   <body ng-controller="AppCtrl">
+    
+    
     <div class="container">
       <header class="project-header">
         <div class="row">
           <div class="col-sm-8 col-md-offset-4 col-lg-offset-3">
-            <a href="/"><h1>Apache Maven</h1></a>
-            <span ng-bind="lastPublished"></span>
+            <a href="/"><h1 ng-bind="title"></h1></a>
+            <div ng-if="projectVersion" ng-bind="projectVersion"></div>
+            <div ng-if="lastPublished" ng-bind="lastPublished"></div>
           </div>
         </div>
       </header>
     </div>
+    
+    
     <div class="container" ng-include="pagePresentation">
     </div>
+    
+    
     <footer ng-controller="FooterCtrl">
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-8 col-md-offset-4 col-lg-offset-3" ng-bind-html="footerHtml">
           </div>
         </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-8 col-md-offset-4 col-lg-offset-3">
+            <div>Theme created by <a href="mailto:marek.romanowski@gmail.com">Marek Romanowski</a></div>
+            <div>Copyright @ <a href="mailto:contact@matsuo.pl">Matsuo IT</a> 2015</div>
+          </div>
+        </div>
       </div>
     </footer>
+    
+    <div class="scroll-to-top" ng-click="scrollToTop()">
+      <i class="glyphicon glyphicon-arrow-up"></i>
+    </div>
+    
     
 <!--     <iframe src="//maven.matsuo-it.com/maven/" class="hidden"></iframe> -->
     
@@ -54,6 +73,7 @@
      -->
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/default.js"></script>
+    <script type="text/javascript" src="/js/fluido.js"></script>
     <script type="text/javascript" src="/js/jxr.js"></script>
   </body>
 </html>

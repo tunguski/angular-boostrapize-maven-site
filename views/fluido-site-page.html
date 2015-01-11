@@ -1,0 +1,20 @@
+<div class="row" ng-controller="FluidoSitePageCtrl">
+  <div class="col-lg-3 col-md-4 main-navigation" ng-controller="NaviCtrl">
+    <div  data-spy="affix" data-offset-top="170"  data-offset="50">
+      <div ng-repeat="element in elements" ng-bind-html="element" ng-show="visibility[$index]" 
+           ng-click="toggleCollapse($index)">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-md-8 main-body" ng-controller="FluidoContentCtrl">
+    <div ng-repeat="element in elements" ng-bind-html="element">
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-8 col-md-offset-4 col-lg-offset-0 download-navigation" 
+       ng-controller="FluidoDownloadCtrl" ng-class="{ 'visible-lg-block': isMenu }">
+    <div ng-repeat="element in elements" ng-class="{ collapsed: !visibility[$index] }" 
+         ng-bind-html="element" ng-click="toggleCollapse($index, element)"></div>
+  </div>
+</div>

@@ -3,25 +3,19 @@
   
   <div class="col-md-3 main-navigation">
     <div ng-controller="JxrOverviewCtrl">
-      <h4>Overview</h4>
-      <div ng-repeat="element in elements" ng-bind-html="element" 
-           ng-click="showPackage(element)">
-      </div>
+      <h4 ng-click="page('test')">Overview</h4>
+      <div ng-repeat="element in elements" ng-click="page(element)" ng-bind-html="element"></div>
     </div>
     
     <div ng-controller="JxrAllClassesCtrl">
       <h4>All Classes</h4>
-      <div ng-repeat="element in elements" ng-bind-html="element" 
-           ng-click="showClass(element)">
-      </div>
+      <div ng-repeat="element in elements" ng-click="page(element)" ng-bind-html="element"></div>
     </div>
   </div>
 
 
   <div class="col-md-9 main-body" ng-controller="JxrSummaryCtrl">
     <h4>Summary</h4>
-      <div ng-repeat="element in summary"  ng-bind-html="element" 
-           ng-click="showPackage(element)">
-      </div>
+      <div ng-repeat="element in summary" ng-bind-html="element"></div>
   </div>
 </div>

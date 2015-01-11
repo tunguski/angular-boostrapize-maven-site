@@ -2,7 +2,7 @@
   angular.module('ngBootstrapizeMaven')
   
   
-  .controller('DefaultSitePageCtrl', function ($scope, $rootScope, $timeout) {
+  .controller('FluidoSitePageCtrl', function ($scope, $rootScope, $timeout) {
     $scope.$watch('pageSrc', function (pageSrc) {
       if (pageSrc) {
         var hash = $scope.hash;
@@ -49,18 +49,65 @@
         });
 
         var mvnSite = $scope.mvn.site = $(pageSrc);
-        $scope.mvn.bodySections = mvnSite.find('#contentBox > *');
-        $scope.mvn.naviContent = mvnSite.find('#navcolumn > *');
+        $scope.mvn.bodySections = mvnSite.find('#bodyColumn > .section > *');
+        
+        if (mvnSite.find('#leftColumn .nav').length) {
+          // side menu
+          $scope.mvn.naviContent = [];
+          
+          var sublist;
+          
+          mvnSite.find('#leftColumn .nav > li').each(function () {
+            if ($(this).hasClass('nav-header')) {
+              if (sublist) {
+                $scope.mvn.naviContent.push(sublist);
+              }
+              $scope.mvn.naviContent.push($('<h5>' + $(this).text() + '</h5>'));
+              sublist = $('<ul></ul>');
+            } else {
+              sublist.append(this);
+            }
+          });
+          // last sublist after finishing processing
+          $scope.mvn.naviContent.push(sublist);
+          
+          mvnSite.find('.nav').find('*').removeClass();
+          
+        } else if (mvnSite.find('#leftColumn .sidebar-nav').length) {
+          // side menu with better formatting
+          $scope.mvn.naviContent = mvnSite.find('#leftColumn .sidebar-nav > *:not(.divider)');
+          $scope.mvn.naviContent.each(function (index) {
+            if (this.tagName === 'H3') {
+              $scope.mvn.naviContent[index] = $('<h5>' + $(this).text() + '</h5>');
+            }
+          });
+          
+        } else if (mvnSite.find('#topbar .nav').length) {
+          // topbar menu
+          $scope.mvn.naviContent = mvnSite.find('.nav > .dropdown > *');
+          mvnSite.find('.nav').find('*').removeClass();
+          $scope.mvn.naviContent.each(function (index) {
+            if (this.tagName.toLowerCase() === 'a') {
+              $scope.mvn.naviContent[index] = $('<h5>' + $(this).text() + '</h5>');
+            }
+          })
+          $scope.mvn.naviContent.filter('a').replaceWith(function () {
+            return '<h5>' + $(this).text() + '</h5>';
+          });
+        }
+        
         $scope.mvn.downloadSections = mvnSite.find('#downloadbox .section > .section > .section');
-        $scope.mvn.footerContent = mvnSite.find('#footer .xright');
+        $scope.mvn.footerContent = mvnSite.find('footer .container .row').removeClass();
 
         // page header
-        $rootScope.lastPublished = mvnSite.find('#breadcrumbs .xright').text();
+        $rootScope.lastPublished = mvnSite.find('#publishDate').text();
+        $rootScope.projectVersion = mvnSite.find('#projectVersion').text();
         $rootScope.title = '';
-        mvnSite.find('#breadcrumbs .xleft a').each(function () {
+        mvnSite.find('.breadcrumb li:not(.divider):not(.pull-right) a').each(function () {
           $rootScope.title = $rootScope.title + ' ' + $(this).text();
         });
         $rootScope.title = $rootScope.title.trim();
+        // fixme: remove duplicated prefix if present - how to detect?
         
         // remove all images - for better site display
         mvnSite.find('img').remove();
@@ -78,7 +125,7 @@
         
         $timeout(function () {
           $(document).ready(function() {
-            $('pre').each(function(i, block) {
+            $('.section > div > pre').each(function(i, block) {
               hljs.highlightBlock(block);
             });
           });
@@ -88,7 +135,7 @@
   })
   
   
-  .controller('NaviCtrl', function ($scope) {
+  .controller('FluidoNaviCtrl', function ($scope) {
     $scope.executeWithSite('naviContent', function (mvn) {
       $scope.elements = [];
       $scope.visibility = [];
@@ -107,7 +154,7 @@
   })
   
   
-  .controller('DownloadCtrl', function ($scope) {
+  .controller('FluidoDownloadCtrl', function ($scope) {
     $scope.executeWithSite('downloadSections', function (mvn, menu) {
       $scope.elements = [];
       $scope.scrollToElements = [];
@@ -142,20 +189,13 @@
   })
   
   
-  .controller('ContentCtrl', function ($scope) {
+  .controller('FluidoContentCtrl', function ($scope) {
     $scope.executeWithSite('bodySections', function (mvn) {
       $scope.elements = [];
 
       angular.forEach($scope.mvn.bodySections, function (element) {
         $scope.elements.push(angular.element(element).prop('outerHTML'));
       });
-    });
-  })
-  
-  
-  .controller('FooterCtrl', function ($scope) {
-    $scope.executeWithSite('footerContent', function (mvn) {
-      $scope.footerHtml = angular.element($scope.mvn.footerContent).prop('outerHTML');
     });
   })
   ;

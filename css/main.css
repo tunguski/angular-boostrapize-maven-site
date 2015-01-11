@@ -4,6 +4,7 @@
 }
 
 a {
+  cursor: pointer;
   transition: all 0.5s ease;
 }
 
@@ -31,7 +32,6 @@ tt {
 /* wtf ??? */
 
 table.table {
-  font-size: 90%;
   border-width: 0;
 }
 
@@ -83,17 +83,19 @@ header.project-header span {
   margin-bottom: 20px;
 }
 
-
 @media (min-width: 768px) {
   .main-navigation {
     margin-bottom: 60px;
   }
 }
 
-
 .main-navigation ul {
   list-style-type: none;
   padding-left: 20px;
+}
+
+.main-navigation h5 {
+  cursor: pointer;
 }
 
 .main-navigation:not(:hover) a {
@@ -125,12 +127,20 @@ header.project-header span {
   transition: all 0.5s ease;
 }
 
-.download-navigation:not(:hover) a {
-  color: #bbb;
-}
-
 .download-navigation:hover {
   color: #333;
+}
+
+.download-navigation h5 {
+  cursor: pointer;
+}
+
+.download-navigation:hover span {
+  color: #999;
+}
+
+.download-navigation:not(:hover) a {
+  color: #bbb;
 }
 
 .download-navigation a:not([href*='foundation']) {
@@ -156,11 +166,45 @@ header.project-header span {
 }
 
 
+/* scroll-to-top */
+
+.scroll-to-top {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background-color: #eee;
+  opacity: .3;
+  width: 50px;
+  height: 50px;
+  padding: 7px 10px 10px 7px;
+  transition: all .5s ease;
+}
+
+.scroll-to-top:hover {
+  opacity: .5;
+}
+
+.scroll-to-top i {
+  font-size: 32px;
+}
+
+@media (max-width: 768px) {
+  .scroll-to-top {
+    display: block;
+  }
+}
+
+
 /* footer */
 
 footer {
   color: #bbb;
   margin: 60px 0;
+}
+
+footer .row + .row {
+  margin-top: 20px;
 }
 
 
