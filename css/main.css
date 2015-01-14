@@ -215,4 +215,8 @@ footer .row + .row {
   margin-top: 20px;
 }
 
+footer .reports-link:not(:hover) {
+  color: #bbb;
+}
+
 

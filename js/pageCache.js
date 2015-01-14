@@ -23,24 +23,26 @@
         return '<div>' + data.substr(data.indexOf('>') + 1) + '</div>';
       },
       
-      load: function (path, successFn, failureFn) {
+      load: function (path, successFn, failureFn, relativeTo) {
         if (pageCache.get(path)) {
           successFn(pageCache.get(path));
         } else {
-          $http.get(path).success(function (pageSrc) {
+          $http.get(path).success(function (pageSrc, status, headers, config) {
             // FIXME: stopping images from loading - but images in content should be loaded!
             pageSrc = pageSrc.replace(/<img /g, '<i ').replace(/<\/img>/g, '</i>');
             // rewrite links so they work in ang-boot-mav-site
-            pageSrc = pageSrc.replace(/href=".*?"/g, mvnLinker);
+            pageSrc = pageSrc.replace(/href=".*?"/g, 
+              relativeTo ? mvnLinker.linkRelativeTo(relativeTo) : mvnLinker.link());
 
-            
             var pageData =  memory[path] = { src: pageSrc };
+            pageData.status = status;
+            pageData.loadTime = new Date().toString();
             pageData.trimmed = pageCache.trimPageContent(pageSrc);
             pageData.processed = $(pageData.trimmed);
 
             successFn(pageCache.get(path));
           }).error(function (data, status, headers, config) {
-            memory[path] = { data: data, status: status, headers: headers, config: config };
+            memory[path] = { data: data, status: status };
             
             if (failureFn) {
               failureFn(memory[path]);
