@@ -1,21 +1,26 @@
 <div class="row jxr-presentation" ng-controller="JxrCtrl">
   
-  
-  <div class="col-md-3 main-navigation">
+  <div class="col-md-2 main-navigation">
     <div ng-controller="JxrOverviewCtrl">
-      <h4 ng-click="page('test')">Overview</h4>
-      <div ng-repeat="element in elements" ng-click="page(element)" ng-bind-html="element"></div>
+      <h4 ng-click="page(packageListFrameUrl)">Overview</h4>
+      <div ng-repeat="element in elements">
+        <dynamic-element message="element"></dynamic-element>
+      </div>
     </div>
     
     <div ng-controller="JxrAllClassesCtrl">
-      <h4>All Classes</h4>
-      <div ng-repeat="element in elements" ng-click="page(element)" ng-bind-html="element"></div>
+      <h4 ng-click="page(packageFrameUrl)">All Classes</h4>
+      <div ng-repeat="element in elements">
+        <dynamic-element message="element"></dynamic-element>
+      </div>
     </div>
   </div>
 
 
-  <div class="col-md-9 main-body" ng-controller="JxrSummaryCtrl">
+  <div class="col-md-10 main-body" ng-controller="JxrSummaryCtrl">
     <h4>Summary</h4>
-      <div ng-repeat="element in summary" ng-bind-html="element"></div>
+    <div ng-repeat="element in summary">
+      <dynamic-element message="element"></dynamic-element>
+    </div>
   </div>
 </div>

@@ -1,0 +1,21 @@
+<div class="row" ng-controller="ReportsListPageCtrl">
+  <div class="col-lg-2 col-md-3 main-navigation" ng-controller="ReportsListNaviCtrl">
+  </div>
+
+  <div class="col-lg-8 col-md-9 main-body" ng-controller="ReportsListContentCtrl">
+    <div>
+      <h2>Reports list</h2>
+      <ul class="list-unstyled">
+        <li><a href="#_views/reports/linkage.html">Links report</a></li>
+        <li><a href="#_views/reports/site-map.html">Page references map</a></li>
+        <li><a href="#_views/reports/class-references.html">Class references</a></li>
+<!--         <li><a href="#_views/reports/.html"></a></li> -->
+      </ul>      
+    </div>
+  </div>
+
+  <div class="col-lg-2 col-md-9 col-md-offset-3 col-lg-offset-0 download-navigation" 
+       ng-class="{ 'visible-lg-block': isMenu }" 
+       ng-controller="ReportsListDownloadCtrl">
+  </div>
+</div>

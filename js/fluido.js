@@ -6,47 +6,6 @@
     $scope.$watch('pageSrc', function (pageSrc) {
       if (pageSrc) {
         var hash = $scope.hash;
-        // stop images from loading
-        pageSrc = pageSrc.replace(/<img /g, '<i ').replace(/<\/img>/g, '</i>');
-        // rewrite links so they work in ang-boot-mav-site
-        pageSrc = pageSrc.replace(/href=".*?"/g, function (match, index, fullText) {
-          // page we are starting from
-          var hashCopy = (hash.indexOf('/') >= 0 && hash.lastIndexOf('/') + 1 != hash.length) 
-                ? hash.substr(0, hash.lastIndexOf('/')) : hash;
-          
-          // for external links return what was matched
-          if (match.match(/http[s]?:\/\/maven.apache.org/)) {
-            match = match.replace(/http[s]?:\/\/maven.apache.org/, '');
-          } else if (match.indexOf('href="http') == 0) {
-            return match;
-          }
-          
-          var i = 0;
-          while (true) {
-            i = i + 1;
-            if (i > 100) {
-              throw Error('infinite loop');
-            }
-            
-            if (match.indexOf('href="/') === 0) {
-              // do not modify absolute paths
-              break;
-            } else if (match.indexOf('href="../') >= 0) {
-              // it's not perfect as '....//' will generate two folds, but I assume page hrefs are safe
-              match = match.replace(/\.\.\//, '');
-              hashCopy = hashCopy.substr(0, hashCopy.lastIndexOf('/'));
-            } else if (match.indexOf('href="./') >= 0) {
-              // it's not perfect as '....//' will generate two folds, but I assume page hrefs are safe
-              match = match.replace(/\.\//, '');
-            } else {
-              break;
-            }
-          }
-
-          // add hash to href
-          return 'href="#' + (hashCopy && !(match.indexOf('href="/') === 0) 
-                              ? hashCopy + '/' : '' ) + match.substr(6);
-        });
 
         var mvnSite = $scope.mvn.site = $(pageSrc);
         $scope.mvn.bodySections = mvnSite.find('#bodyColumn > .section > *');
@@ -97,7 +56,8 @@
         }
         
         $scope.mvn.downloadSections = mvnSite.find('#downloadbox .section > .section > .section');
-        $scope.mvn.footerContent = mvnSite.find('footer .container .row').removeClass();
+        $scope.mvn.footerContent = mvnSite.find('footer .row');
+        $scope.mvn.footerContent.removeClass()
 
         // page header
         $rootScope.lastPublished = mvnSite.find('#publishDate').text();
@@ -125,7 +85,7 @@
         
         $timeout(function () {
           $(document).ready(function() {
-            $('.section > div > pre').each(function(i, block) {
+            $('.section > div > pre, .source > pre').each(function(i, block) {
               hljs.highlightBlock(block);
             });
           });
@@ -142,7 +102,8 @@
 
       angular.forEach($scope.mvn.naviContent, function (element, index) {
         $scope.elements.push(angular.element(element).prop('outerHTML'));
-        $scope.visibility.push(index % 2 == 0);
+        $scope.visibility.push(index % 2 == 0
+                              || menuMemory.isOpen($(element).text()));
       });
     });
     

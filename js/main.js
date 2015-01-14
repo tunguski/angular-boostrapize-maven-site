@@ -1,15 +1,21 @@
 (function($) {
-    $.fn.changeElementType = function(newType) {
-        var attrs = {};
+  $.fn.changeElementType = function(newType) {
+    var attrs = {};
 
-        $.each(this[0].attributes, function(idx, attr) {
-            attrs[attr.nodeName] = attr.nodeValue;
-        });
+    $.each(this[0].attributes, function(idx, attr) {
+      attrs[attr.nodeName] = attr.nodeValue;
+    });
 
-        this.replaceWith(function() {
-            return $("<" + newType + "/>", attrs).append($(this).contents());
-        });
-    };
+    this.replaceWith(function() {
+      return $("<" + newType + "/>", attrs).append($(this).contents());
+    });
+  };
+
+  $.fn.pop = function() {
+    var top = this.get(-1);
+    this.splice(this.length-1,1);
+    return top;
+  };
 })(jQuery);
 
 
@@ -18,9 +24,7 @@
   angular.module('ngBootstrapizeMaven', ['ngAnimate','ngAria', 'ui.bootstrap', 'ngSanitize'])
   
   
-  .controller('AppCtrl', function ($scope, $http, $sce, $location) {
-    
-    
+  .controller('AppCtrl', function ($scope, $http, $location, pageCache, siteScanner) {
     $scope.scrollToTop = function () {
         $('html, body').animate({ scrollTop: 0 }, 100);
     }
@@ -28,14 +32,14 @@
     
     $scope.outerHtml = function (jq) {
       return jq.map(function (index, element) {
-        return $sce.trustAsHtml(angular.element(element).prop('outerHTML'));
+        return angular.element(element).prop('outerHTML');
       });
     }
     
     
     $scope.executeWithSite = function (part, fn) {
       part = part ? part : 'site';
-      $scope.$watch('mvn.' + part, function (element) {
+      this.$watch('mvn.' + part, function (element) {
         if (element) fn($scope.mvn, element);
       });
     }
@@ -56,37 +60,28 @@
     };
     
     
-    $scope.trimPageContent = function (data) {
-      if (data.indexOf('<frameset') >= 0) {
-        // get only body content, as jquery cannot parse full page
-        data = data.substring(data.indexOf('<frameset'), data.lastIndexOf('</frameset>'));
-      } else {
-        // get only body content, as jquery cannot parse full page
-        data = data.substring(data.indexOf('<body'), data.lastIndexOf('</body>'));
-      }
-      
-      return '<div>' + data.substr(data.indexOf('>') + 1) + '</div>';
-    };
-    
-    
     $scope.$on('$locationChangeSuccess', function (data) {
       $scope.hash = $location.path();
-      $scope.page = '//maven.matsuo-it.com/maven' + $scope.hash;
+      $scope.page = '/maven' + $scope.hash;
       
-      $http.get($scope.page).success(function (data) {
-        $('html, body').animate({ scrollTop: 0 }, 100);
+      if ($scope.hash.indexOf('_views/') == 0
+          || $scope.hash.indexOf('/_views/') == 0) {
+        $scope.pagePresentation = $scope.hash.substr($scope.hash.indexOf('_') + 1);
+      } else {
+        pageCache.load($scope.page, function (data) {
+          $('html, body').animate({ scrollTop: 0 }, 100);
 
-        // switch presentation if necessary - pass full source for beter detection
-        $scope.resolvePagePresentation(data);
+          // switch presentation if necessary - pass full source for beter detection
+          $scope.resolvePagePresentation(data.trimmed);
 
-        data = $scope.trimPageContent(data);
-        
-        $scope.mvn = {};
-          
-        // show new content to presenter
-        $scope.pageSrc = data;
-      }).error(function (error) {
-      });
+          data = data.trimmed;
+
+          $scope.mvn = {};
+
+          // show new content to presenter
+          $scope.pageSrc = data;
+        });
+      }
     });
   })
   
@@ -95,6 +90,20 @@
     $scope.executeWithSite('footerContent', function (mvn) {
       $scope.footerHtml = angular.element($scope.mvn.footerContent).prop('outerHTML');
     });
+  })
+  
+  
+  .directive('dynamicElement', function ($compile) {
+    return { 
+      restrict: 'E', 
+      replace: true,
+      link: function(scope, element, attrs) {
+        scope.$watch(attrs.message, function (content) {
+        var template = $compile(content)(scope);
+        element.replaceWith(template);               
+        });
+      }
+    };
   })
   ;
 })();

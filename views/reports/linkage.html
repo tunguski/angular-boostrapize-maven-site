@@ -1,0 +1,37 @@
+<div class="row" ng-controller="LinkagePageCtrl">
+  <div class="col-lg-2 col-md-3 main-navigation" ng-controller="LinkageNaviCtrl">
+  </div>
+
+  <div class="col-lg-8 col-md-9 main-body" ng-controller="LinkageContentCtrl">
+    
+    <table>
+      <tr>
+        <th>Page</th>
+        <th>Links</th>
+      </tr>
+      <tr ng-repeat="(pageName, pageDetails) in siteScanner.report">
+        <td ng-bind="pageName"></td>
+        <td>
+
+          <table>
+            <tr>
+              <th>Link</th>
+              <th>Status</th>
+            </tr>
+            <tr ng-repeat="(link, linkDetails) in pageDetails">
+              <td ng-bind="link"></td>
+              <td ng-bind="linkDetails.status || '+'"></td>
+            </tr>
+          </table>
+
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+
+  <div class="col-lg-2 col-md-9 col-md-offset-3 col-lg-offset-0 download-navigation" 
+       ng-class="{ 'visible-lg-block': isMenu }" 
+       ng-controller="LinkageDownloadCtrl">
+  </div>
+</div>

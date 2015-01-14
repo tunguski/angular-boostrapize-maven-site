@@ -5,49 +5,6 @@
   .controller('DefaultSitePageCtrl', function ($scope, $rootScope, $timeout) {
     $scope.$watch('pageSrc', function (pageSrc) {
       if (pageSrc) {
-        var hash = $scope.hash;
-        // stop images from loading
-        pageSrc = pageSrc.replace(/<img /g, '<i ').replace(/<\/img>/g, '</i>');
-        // rewrite links so they work in ang-boot-mav-site
-        pageSrc = pageSrc.replace(/href=".*?"/g, function (match, index, fullText) {
-          // page we are starting from
-          var hashCopy = (hash.indexOf('/') >= 0 && hash.lastIndexOf('/') + 1 != hash.length) 
-                ? hash.substr(0, hash.lastIndexOf('/')) : hash;
-          
-          // for external links return what was matched
-          if (match.match(/http[s]?:\/\/maven.apache.org/)) {
-            match = match.replace(/http[s]?:\/\/maven.apache.org/, '');
-          } else if (match.indexOf('href="http') == 0) {
-            return match;
-          }
-          
-          var i = 0;
-          while (true) {
-            i = i + 1;
-            if (i > 100) {
-              throw Error('infinite loop');
-            }
-            
-            if (match.indexOf('href="/') === 0) {
-              // do not modify absolute paths
-              break;
-            } else if (match.indexOf('href="../') >= 0) {
-              // it's not perfect as '....//' will generate two folds, but I assume page hrefs are safe
-              match = match.replace(/\.\.\//, '');
-              hashCopy = hashCopy.substr(0, hashCopy.lastIndexOf('/'));
-            } else if (match.indexOf('href="./') >= 0) {
-              // it's not perfect as '....//' will generate two folds, but I assume page hrefs are safe
-              match = match.replace(/\.\//, '');
-            } else {
-              break;
-            }
-          }
-
-          // add hash to href
-          return 'href="#' + (hashCopy && !(match.indexOf('href="/') === 0) 
-                              ? hashCopy + '/' : '' ) + match.substr(6);
-        });
-
         var mvnSite = $scope.mvn.site = $(pageSrc);
         $scope.mvn.bodySections = mvnSite.find('#contentBox > *');
         $scope.mvn.naviContent = mvnSite.find('#navcolumn > *');
@@ -62,7 +19,7 @@
         });
         $rootScope.title = $rootScope.title.trim();
         
-        // remove all images - for better site display
+        // FIXME: remove all images - should leave images from content
         mvnSite.find('img').remove();
         // fix style for tables
         mvnSite.find('table').each(function (index) {
@@ -88,20 +45,22 @@
   })
   
   
-  .controller('NaviCtrl', function ($scope) {
+  .controller('NaviCtrl', function ($scope, menuMemory) {
     $scope.executeWithSite('naviContent', function (mvn) {
       $scope.elements = [];
       $scope.visibility = [];
 
       angular.forEach($scope.mvn.naviContent, function (element, index) {
         $scope.elements.push(angular.element(element).prop('outerHTML'));
-        $scope.visibility.push(index % 2 == 0);
+        $scope.visibility.push(index % 2 == 0
+                               || menuMemory.isOpen($($scope.elements[index - 1]).text()));
       });
     });
     
     $scope.toggleCollapse = function (index) {
       if (index % 2 == 0) {
         $scope.visibility[index + 1] = !$scope.visibility[index + 1];
+        menuMemory.clicked($($scope.elements[index]).text());
       }
     };
   })
@@ -142,9 +101,20 @@
   })
   
   
-  .controller('ContentCtrl', function ($scope) {
+  .controller('ContentCtrl', function ($scope, $timeout) {
     $scope.executeWithSite('bodySections', function (mvn) {
       $scope.elements = [];
+   
+      // FIXME: what to do with real anchors?
+//       $timeout(function () {
+//         $(".page-presentation a")
+//           .filter(function() { 
+//             return this.href.match(/#.*#/);
+//           })
+//           .click(function () {
+//             alert('scroll to anchor');
+//           });
+//       });
 
       angular.forEach($scope.mvn.bodySections, function (element) {
         $scope.elements.push(angular.element(element).prop('outerHTML'));

@@ -68,8 +68,8 @@ header.project-header a:hover {
   color: rgb(51, 122, 183);
 }
 
-header.project-header span {
-  color: #bbb;
+header.project-header h1 .pull-right {
+  font-size: 16px;
 }
 
 
@@ -96,6 +96,10 @@ header.project-header span {
 
 .main-navigation h5 {
   cursor: pointer;
+}
+
+.main-navigation h5:hover {
+  color: #337ab7;
 }
 
 .main-navigation:not(:hover) a {
@@ -133,6 +137,10 @@ header.project-header span {
 
 .download-navigation h5 {
   cursor: pointer;
+}
+
+.download-navigation h5:hover {
+  color: #337ab7;
 }
 
 .download-navigation:hover span {
