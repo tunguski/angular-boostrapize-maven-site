@@ -2,20 +2,28 @@
   angular.module('ngBootstrapizeMaven')
   .service('mvnLinker', function ($rootScope, $location) {
     function trimTrailingSlashes(hash) {
+      // if hash ends with file, skip it
+      hash = hash.replace(/(^|\/)[^./]+\.[^/]+$/, '');
+
+      // remove all ending slashes
       while (hash.lastIndexOf('/') >= 0 && hash.lastIndexOf('/') + 1 === hash.length) {
         hash = hash.substring(0, hash.length - 1);
       }
       
-      return hash;
+      return hash || '/';
     }
     
     var mvnLinker = {
       linkRelativeTo: function (hash) {
+        hash = trimTrailingSlashes(hash);
+        
         return function (match) {
+          var localHash = hash;
           // for external links return what was matched
           if (match.match(/http[s]?:\/\/maven.apache.org/)) {
             match = match.replace(/http[s]?:\/\/maven.apache.org/, '');
-          } else if (match.indexOf('href="http') == 0) {
+          } else if (match.indexOf('href="http') == 0
+                  || match.indexOf('href="mailto:') == 0) {
             return match;
           }
 
@@ -32,29 +40,23 @@
             } else if (match.indexOf('href="../') >= 0) {
               // it's not perfect as '....//' will generate two folds, but I assume page hrefs are safe
               match = match.replace(/\.\.\//, '');
-              hash = trimTrailingSlashes(hash.substr(0, hash.lastIndexOf('/')));
+              localHash = trimTrailingSlashes(localHash.substr(0, localHash.lastIndexOf('/')));
             } else if (match.indexOf('href="./') >= 0) {
               // it's not perfect as '....//' will generate two folds, but I assume page hrefs are safe
-              match = match.replace(/\.\//, '');
+              match = match.replace(/\.[\/]+/, '');
             } else {
               break;
             }
           }
 
           // add hash to href
-          return 'href="#' + (hash && !(match.indexOf('href="/') === 0) 
-                              ? hash + '/' : '' ) + match.substr(6);
+          return 'href="#' + (localHash && !(match.indexOf('href="/') === 0) 
+                              ? localHash + '/' : '' ) + match.substr(6);
         }
       },
       
       link: function () {
-        var hash = $location.path();
-        // if hash ends with file, skip it
-        var hash = hash.replace(/\/[^./]+\..+$/g, '');
-        // trim
-        hash = trimTrailingSlashes(hash);
-
-        return mvnLinker.linkRelativeTo(hash);
+        return mvnLinker.linkRelativeTo(trimTrailingSlashes($location.path()));
       }
     };
     

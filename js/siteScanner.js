@@ -1,17 +1,20 @@
 (function() {
   angular.module('ngBootstrapizeMaven')
   .service('siteScanner', function (pageCache) {
-    function trimTrailingSlashes(hash) {
-      while (hash.lastIndexOf('/') >= 0 && hash.lastIndexOf('/') + 1 === hash.length) {
-        hash = hash.substring(0, hash.length - 1);
-      }
-      
-      return hash;
+    var scanned;
+
+    function setupScanned() {
+      scanned = { '/maven': {}, __meta: { pages: {
+        all: 1,
+        '200': 1,
+        '404': 0,
+        '403': 0
+      } } };
     }
-    
-    var scanned = { '/maven': {} };
+    setupScanned();
+
     if (localStorage && localStorage.getItem('siteScannerReport')) {
-      scanned = JSON.parse(localStorage.getItem('siteScannerReport'));
+      //scanned = JSON.parse(localStorage.getItem('siteScannerReport'));
     }
     
     var siteScanner = {
@@ -20,7 +23,7 @@
       
       clear: function () {
         localStorage.removeItem('siteScannerReport');
-         scanned = siteScanner.report = { '/maven': {} };
+        setupScanned();
       },
       
       stop: function () {
@@ -34,23 +37,26 @@
         siteScanner.isScanning = true;
         
         pageCache.load('/maven/', function (data) {
-          var toScan = [[ '/maven/', data.processed.find('a[href^="#"]') ]];
+          var toScan = siteScanner.toScan = [[ '/maven/', data.processed.find('a[href^="#"]') ]];
           
           function scanNext() {
             if (!siteScanner.isScanning) {
               return;
             }
             
-            if (!toScan[0][1].length) {
+            while (!toScan[0][1].length && toScan.length) {
               toScan.shift();
               if (localStorage) {
-                localStorage.setItem('siteScannerReport', JSON.stringify(scanned));
+                //localStorage.setItem('siteScannerReport', JSON.stringify(scanned));
               }
             }
             
             if (toScan.length) {
               var anchor = $(toScan[0][1].pop());
-              var href = anchor.attr('href').replace(/#/, 'maven');
+              var href = anchor.attr('href').replace(/#[/]+/, '/');
+              
+              href = '/maven/' + href;
+              href = href.replace(/[/]+/g, '/');
           
               function addLinksAndScan(pageData) {
                 scanned[toScan[0][0]] = scanned[toScan[0][0]] || {};
@@ -59,6 +65,8 @@
                   toScan.push([ href, pageData.processed.find('a[href^="#"]') ]);
                 }
                 scanned[href] = {}
+                scanned.__meta.pages.all = scanned.__meta.pages.all + 1;
+                scanned.__meta.pages['200'] = scanned.__meta.pages['200'] + 1;
                 scanNext();
               }
 
@@ -67,17 +75,16 @@
                 scanned[toScan[0][0]][href] = pageCache.get(href);
                 scanNext();
               } else {
-                var hash = toScan[0][0].substr('/maven'.length);
-                // if hash ends with file, skip it
-                var hash = hash.replace(/\/[^./]+\..+$/g, '');
-                // trim
-                hash = trimTrailingSlashes(hash);
+                var base = toScan[0][0];
                 
                 pageCache.load(href, addLinksAndScan, function (result) {
                   scanned[toScan[0][0]] = scanned[toScan[0][0]] || {};
                   scanned[toScan[0][0]][href] = result;
+                  scanned.__meta.pages.all = scanned.__meta.pages.all + 1;
+                  scanned.__meta.pages[result.status] = 
+                    (scanned.__meta.pages[result.status] || 0) + 1;
                   scanNext();
-                }, hash);
+                }, base.substr('/maven'.length));
               }
             } else {
               siteScanner.isScanning = false;

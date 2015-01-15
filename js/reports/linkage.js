@@ -9,7 +9,7 @@
     $scope.countErrors = function (element) {
       var count = 0;
       angular.forEach(element, function (value) {
-        if (value.status === 404) {
+        if (value && value.status === 404) {
           count = count + 1;
         }
       });
@@ -17,6 +17,15 @@
     };
     
     $scope.countPages = function (element) {
+      var count = 0;
+      angular.forEach(element, function (value) {
+        if (value && value.status === 200) {
+          count = count + 1;
+        }
+      });
+      return count;
+    };
+    $scope.keys = function (element) {
       return Object.keys(element).length;
     };
     
