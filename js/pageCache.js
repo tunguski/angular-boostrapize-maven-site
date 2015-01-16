@@ -24,7 +24,7 @@
       },
       
       load: function (path, successFn, failureFn, relativeTo) {
-        path = path.replace(/\/\//g, '/').replace(/:\//g, '://');
+        path = path.replace(/\/\//g, '/').replace(/:\//g, '://').replace(/^\/?#/, '/maven');
         
         if (pageCache.get(path)) {
           successFn(pageCache.get(path));
@@ -34,7 +34,7 @@
             pageSrc = pageSrc.replace(/<img /g, '<i ').replace(/<\/img>/g, '</i>');
             // rewrite links so they work in ang-boot-mav-site
             pageSrc = pageSrc.replace(/href=".*?"/g, 
-              mvnLinker.linkRelativeTo(path.substr('/maven'.length)));
+              mvnLinker.linkRelativeTo(path.substr(path.indexOf('maven/') + 5)));
 
             var pageData =  memory[path] = { src: pageSrc };
             pageData.status = status;
