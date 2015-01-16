@@ -7,6 +7,25 @@
       $scope.mvn.site = $(pageSrc);
       $rootScope.title = 'Apache Maven';
     });
+    
+    
+    $scope.project = {
+      src: []
+    };
+
+
+    $scope.executeWithSite('packageListFrame', function (mvn, frame) {
+      mvn.packageList = frame.find('li a');
+      $scope.elements = $scope.outerHtml(mvn.packageList);
+      
+      function getElement(path, base) {
+        var element = _.findWhere(base.src, { name: path });
+      }
+      
+      angular.forEach($scope.elements, function (package) {
+        var packages = $(package).text().split('.');
+      });
+    });
 
     
     $scope.loadFrame = function (frameName, successFn) {
@@ -53,10 +72,6 @@
   
   
   .controller('JxrOverviewCtrl', function ($scope, $http) {
-    $scope.executeWithSite('packageListFrame', function (mvn, frame) {
-      mvn.packageList = frame.find('li a');
-      $scope.elements = $scope.outerHtml(mvn.packageList);
-    });
   })
   
   

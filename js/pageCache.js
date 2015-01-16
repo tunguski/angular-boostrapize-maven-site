@@ -24,7 +24,7 @@
       },
       
       load: function (path, successFn, failureFn, relativeTo) {
-        path = path.replace(/[/]+/g, '/');
+        path = path.replace(/\/\//g, '/').replace(/:\//g, '://');
         
         if (pageCache.get(path)) {
           successFn(pageCache.get(path));

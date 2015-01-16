@@ -1,7 +1,7 @@
 (function() {
   angular.module('ngBootstrapizeMaven')
   .service('mvnLinker', function ($rootScope, $location) {
-    function trimTrailingSlashes(hash) {
+    function trimFileAndTrailingSlashes(hash) {
       // if hash ends with file, skip it
       hash = hash.replace(/(^|\/)[^./]+\.[^/]+$/, '');
 
@@ -15,7 +15,7 @@
     
     var mvnLinker = {
       linkRelativeTo: function (hash) {
-        hash = trimTrailingSlashes(hash);
+        hash = trimFileAndTrailingSlashes(hash);
         
         return function (match) {
           var localHash = hash;
@@ -40,7 +40,7 @@
             } else if (match.indexOf('href="../') >= 0) {
               // it's not perfect as '....//' will generate two folds, but I assume page hrefs are safe
               match = match.replace(/\.\.\//, '');
-              localHash = trimTrailingSlashes(localHash.substr(0, localHash.lastIndexOf('/')));
+              localHash = trimFileAndTrailingSlashes(localHash.substr(0, localHash.lastIndexOf('/')));
             } else if (match.indexOf('href="./') >= 0) {
               // it's not perfect as '....//' will generate two folds, but I assume page hrefs are safe
               match = match.replace(/\.[\/]+/, '');
@@ -50,8 +50,10 @@
           }
 
           // add hash to href
-          return 'href="#' + (localHash && !(match.indexOf('href="/') === 0) 
-                              ? localHash + '/' : '' ) + match.substr(6);
+          var newHref = 'href="#' + (localHash && !(match.indexOf('href="/') === 0) 
+                              ? localHash + '/' : '' ) + match.substr('/maven'.length);
+          newHref = newHref.replace(/\/\//g, '/').replace(/:\//g, '://');
+          return newHref;
         }
       },
       
