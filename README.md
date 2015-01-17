@@ -24,6 +24,9 @@ default maven site plugin.
 | --------------------:    | :---------------------------------------------------------- |
 | **Look & Feel**          | In-page anchors are broken                                  |
 | **Page header**          | Whole breadcrumb is one link, should be more intelligent    |
+| **Page indexer**         | Create database in `firebase.com` containing indexing results for searches and reports. |
 | **Javadocs**             | Actually doesn't work. Should be styled as site.            |
+| **Page search**          | Create dynamic search that will show occurences of text in whole site with links. |
+| **Repository search**    | Integrate repository search that will still be in site's style. |
 | **Reports**              |                                                             |
 |                          | **D3 page map** - graphical display of site                 |
