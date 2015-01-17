@@ -27,11 +27,3 @@ default maven site plugin.
 | **Javadocs**             | Actually doesn't work. Should be styled as site.            |
 | **Reports**              |                                                             |
 |                          | **D3 page map** - graphical display of site                 |
-
-t's to be done?
-
-* Improve page header generation
-    * Today it creates only one link from whole breadcrumb
-* In-page anchors are broken
-* Replace anchor based location to path based (HTML5)
-* Javadocs are broken
