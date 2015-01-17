@@ -29,12 +29,14 @@
         if (pageCache.get(path)) {
           successFn(pageCache.get(path));
         } else {
+          var relative = path.indexOf('maven/') >= 0 ?
+            path.substr(path.indexOf('maven/') + 5) : path.substr('maven/'.length);
+          
           $http.get(path).success(function (pageSrc, status, headers, config) {
             // FIXME: stopping images from loading - but images in content should be loaded!
             pageSrc = pageSrc.replace(/<img /g, '<i ').replace(/<\/img>/g, '</i>');
             // rewrite links so they work in ang-boot-mav-site
-            pageSrc = pageSrc.replace(/href=".*?"/g, 
-              mvnLinker.linkRelativeTo(path.substr(path.indexOf('maven/') + 5)));
+            pageSrc = pageSrc.replace(/href=".*?"/g,  mvnLinker.linkRelativeTo(relative));
 
             var pageData =  memory[path] = { src: pageSrc };
             pageData.status = status;
