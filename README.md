@@ -5,18 +5,18 @@ default maven site plugin.
 
 # What's done?
 
-* Totally new look 'n feel
-* Mobile first, responsive by design
-* Works on sites generated with default and fluido skins
-    * Some fluido configurations are still broken
-* Based on Bootstrap 3.3
-* Angular 1.3 for dynamic parts
-* Code highlight
-* Auto TOC generation (right bar)
-* Auto page header discovery
-* No frames in jxr, style consistent with rest of the site
-* Report generation
-    * Actually one is provided - broken links report
+| Subject | What's done |
+| ------: | :---------- |
+| **Look & Feel** | Mobile first |
+| | Responsive by design |
+| | `Bootstrap 3.3` for layout |
+| | `Angular 1.3` for dynamic parts |
+| **Code highlight** | Automatic code parts detection based on `highlightjs.org` |
+| **Table of content** | Built basing on headers (`h1`, `h2`, `h3`) from page source |
+| **Page header** | Created from breadcrumb |
+| **Java source (JXR)** | Built without frames with same style as main page. |
+| **Reports** | Dynamic creating reports from page source: |
+| | **Linkage report** - shows broken links (only within page, no external links examined), size of site ect. |
 
 # What's to be done?
 
