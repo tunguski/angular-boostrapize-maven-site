@@ -23,7 +23,6 @@ default maven site plugin.
 | Subject                  | What's done                                                 |
 | --------------------:    | :---------------------------------------------------------- |
 | **Look & Feel**          | In-page anchors are broken                                  |
-|                          | Responsive by design                                        |
 | **Page header**          | Whole breadcrumb is one link, should be more intelligent    |
 | **Javadocs**             | Actually doesn't work. Should be styled as site.            |
 | **Reports**              |                                                             |
