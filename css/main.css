@@ -110,7 +110,7 @@ header.project-header h1 .pull-right {
   color: #333;
 }
 
-.main-navigation > div:nth-child(odd) {
+.main-navigation *[ng-click] {
   cursor: pointer;
 }
 
@@ -120,6 +120,19 @@ header.project-header h1 .pull-right {
 .main-body {
   text-align: justify;
 }
+
+/* jxr and javadocs */
+
+
+.jxr-presentation .main-body {
+  background-color: white;
+  text-align: justify;
+}
+
+.jxr-presentation .main-body * {
+  text-align: justify;
+}
+
 
 
 /* download-navigation */

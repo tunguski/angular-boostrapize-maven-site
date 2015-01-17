@@ -18,7 +18,7 @@
         }
 
         // very shitty - remove 'non-breaking space styling'
-        data = data.replace(/(&nbsp;|&#160;)/g, '');
+        data = data.replace(/(&nbsp;|&#160;)/g, ' ');
 
         return '<div>' + data.substr(data.indexOf('>') + 1) + '</div>';
       },
@@ -43,6 +43,8 @@
             pageData.loadTime = new Date().toString();
             pageData.trimmed = pageCache.trimPageContent(pageSrc);
             pageData.processed = $(pageData.trimmed);
+            
+            pageData.processed.find('script').remove();
 
             successFn(pageCache.get(path));
           }).error(function (data, status, headers, config) {

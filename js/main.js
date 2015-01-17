@@ -47,8 +47,12 @@
     
     $scope.resolvePagePresentation = function (data) {
       if (data.indexOf('packageListFrame') >= 0) {
-        // jxr
-        $scope.pagePresentation = '/views/jxr-page.html';
+        // jxr or javadoc
+        if (data.toUpperCase().indexOf('JXR') >= 0) {
+          $scope.pagePresentation = '/views/jxr-page.html';
+        } else {
+          $scope.pagePresentation = '/views/javadoc-page.html';
+        }
       } else if (data.indexOf('Rendered using Apache Maven Fluido Skin') >= 0
                  || data.indexOf('<link rel="stylesheet" href="./css/apache-maven-fluido-') >= 0) {
         // default presentation
