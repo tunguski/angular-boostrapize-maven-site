@@ -72,7 +72,7 @@
           $('html, body').animate({ scrollTop: 0 }, 100);
 
           // switch presentation if necessary - pass full source for beter detection
-          $scope.resolvePagePresentation(data.trimmed);
+          $scope.resolvePagePresentation(data.src);
 
           data = data.trimmed;
 
