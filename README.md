@@ -20,7 +20,7 @@ default maven site plugin.
 
 # What's to be done?
 
-| Subject                  | What's done                                                 |
+| Subject                  | What's to be done                                           |
 | --------------------:    | :---------------------------------------------------------- |
 | **Look & Feel**          | In-page anchors are broken                                  |
 | **Page header**          | Whole breadcrumb is one link, should be more intelligent    |
