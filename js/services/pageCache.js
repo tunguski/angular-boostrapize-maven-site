@@ -1,6 +1,6 @@
 (function() {
   angular.module('ngBootstrapizeMaven')
-  .service('pageCache', function ($http, mvnLinker) {
+  .service('pageCache', function ($http, mvnLinker, config) {
     var memory = {};
     
     var pageCache = {
@@ -24,19 +24,24 @@
       },
       
       load: function (path, successFn, failureFn, relativeTo) {
-        path = path.replace(/\/\//g, '/').replace(/:\//g, '://').replace(/^\/?#/, '/maven');
+        path = path.replace(/^\/?#/, '/' + config.base)
+          .replace(/\/\//g, '/')
+          .replace(/:\//g, '://');
         
         if (pageCache.get(path)) {
           successFn(pageCache.get(path));
         } else {
-          var relative = path.indexOf('maven/') >= 0 ?
-            path.substr(path.indexOf('maven/') + 5) : path.substr('maven/'.length);
+          var relative = path.indexOf(config.base) >= 0 ?
+            path.substr(path.indexOf(config.base) + 5) : path.substr(config.base.length);
           
           $http.get(path).success(function (pageSrc, status, headers, config) {
-            // FIXME: stopping images from loading - but images in content should be loaded!
-            pageSrc = pageSrc.replace(/<img /g, '<i ').replace(/<\/img>/g, '</i>');
-            // rewrite links so they work in ang-boot-mav-site
-            pageSrc = pageSrc.replace(/href=".*?"/g,  mvnLinker.linkRelativeTo(relative));
+            pageSrc = pageSrc
+              // FIXME: stopping images from loading - but images in content should be loaded!
+              .replace(/<img /g, '<i ').replace(/<\/img>/g, '</i>')
+              // rewrite links so they work in ang-boot-mav-site
+              .replace(/href=".*?"/g,  mvnLinker.linkRelativeTo(relative))
+              // rewrite in-page anchors
+              .replace(/a name="/g, 'a name="' + relative + '#');
 
             var pageData =  memory[path] = { src: pageSrc };
             pageData.status = status;

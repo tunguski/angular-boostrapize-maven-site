@@ -1,14 +1,14 @@
 <div class="row jxr-presentation" ng-controller="JavaDocCtrl">
   
   <div class="col-md-2 main-navigation">
-    <div ng-controller="JavaDocOverviewCtrl">
+    <div ng-controller="JavaDocOverviewCtrl" ng-show="elements">
       <h4 ng-click="page(packageListFrameUrl)">Overview</h4>
       <div ng-repeat="element in elements">
         <dynamic-element message="element"></dynamic-element>
       </div>
     </div>
     
-    <div ng-controller="JavaDocAllClassesCtrl">
+    <div ng-controller="JavaDocAllClassesCtrl" ng-show="elements">
       <h4 ng-click="page(packageFrameUrl)">All Classes</h4>
       <div ng-repeat="element in elements">
         <dynamic-element message="element"></dynamic-element>

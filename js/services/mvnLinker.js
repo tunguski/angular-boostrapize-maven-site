@@ -1,6 +1,6 @@
 (function() {
   angular.module('ngBootstrapizeMaven')
-  .service('mvnLinker', function ($rootScope, $location) {
+  .service('mvnLinker', function ($rootScope, $location, config) {
     function trimFileAndTrailingSlashes(hash) {
       // if hash ends with file, skip it
       hash = hash.replace(/(^|\/)[^./]+\.[^/]+$/, '');
@@ -14,14 +14,14 @@
     }
     
     var mvnLinker = {
-      linkRelativeTo: function (hash) {
-        hash = trimFileAndTrailingSlashes(hash);
+      linkRelativeTo: function (rawHash) {
+        var hash = trimFileAndTrailingSlashes(rawHash);
         
         return function (match) {
           var localHash = hash;
           // for external links return what was matched
-          if (match.match(/http[s]?:\/\/maven.apache.org/)) {
-            match = match.replace(/http[s]?:\/\/maven.apache.org/, '');
+          if (match.match(new RegExp('http[s]?:\/\/' + config.site))) {
+            match = match.replace(new RegExp('http[s]?:\/\/' + config.site), '');
           } else if (match.indexOf('href="http') == 0
                   || match.indexOf('href="mailto:') == 0) {
             return match;
@@ -50,8 +50,12 @@
           }
 
           // add hash to href
-          var newHref = 'href="#' + (localHash && !(match.indexOf('href="/') === 0) 
-                              ? localHash + '/' : '' ) + match.substr('/maven'.length);
+          if (match.indexOf('#') < 0) {
+            var newHref = 'href="#' + (localHash && !(match.indexOf('href="/') === 0) 
+                                ? localHash + '/' : '' ) + match.substr(config.base.length);
+          } else {
+            var newHref = 'href="#' + rawHash + match.substr(config.base.length);
+          }
           newHref = newHref.replace(/\/\//g, '/').replace(/:\//g, '://');
           return newHref;
         }

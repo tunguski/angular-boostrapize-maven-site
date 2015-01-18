@@ -101,7 +101,7 @@
   })
   
   
-  .controller('ContentCtrl', function ($scope, $timeout) {
+  .controller('ContentCtrl', function ($scope) {
     $scope.executeWithSite('bodySections', function (mvn) {
       $scope.elements = [];
    

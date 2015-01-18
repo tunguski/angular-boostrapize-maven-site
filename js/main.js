@@ -21,10 +21,10 @@
 
 
 (function() {
-  angular.module('ngBootstrapizeMaven', ['ngAnimate','ngAria', 'ui.bootstrap', 'ngSanitize'])
+  angular.module('ngBootstrapizeMaven', ['ui.bootstrap', 'ngSanitize'])
   
   
-  .controller('AppCtrl', function ($scope, $http, $location, pageCache, siteScanner) {
+  .controller('AppCtrl', function ($scope, $http, $location, pageCache, siteScanner, config) {
     $scope.scrollToTop = function () {
         $('html, body').animate({ scrollTop: 0 }, 100);
     }
@@ -49,14 +49,19 @@
       if (data.indexOf('packageListFrame') >= 0) {
         // jxr or javadoc
         if (data.toUpperCase().indexOf('JXR') >= 0) {
+          // jxr source code
           $scope.pagePresentation = '/views/jxr-page.html';
         } else {
+          // javadocs
           $scope.pagePresentation = '/views/javadoc-page.html';
         }
       } else if (data.indexOf('Rendered using Apache Maven Fluido Skin') >= 0
                  || data.indexOf('<link rel="stylesheet" href="./css/apache-maven-fluido-') >= 0) {
-        // default presentation
+        // fluido presentation
         $scope.pagePresentation = '/views/fluido-site-page.html';
+      } else if ($location.path().indexOf('/apidocs/') >= 0) {
+        // silngle javadoc page reference
+        $scope.pagePresentation = '/views/javadoc-page.html';
       } else {
         // default presentation
         $scope.pagePresentation = '/views/default-site-page.html';
@@ -66,10 +71,9 @@
     
     $scope.$on('$locationChangeSuccess', function (data) {
       $scope.hash = $location.path();
-      $scope.page = '/maven' + $scope.hash;
+      $scope.page = '/' + config.base + $scope.hash;
       
-      if ($scope.hash.indexOf('_views/') == 0
-          || $scope.hash.indexOf('/_views/') == 0) {
+      if ($scope.hash.indexOf('_') == 0 || $scope.hash.indexOf('/_') == 0) {
         $scope.pagePresentation = $scope.hash.substr($scope.hash.indexOf('_') + 1);
       } else {
         pageCache.load($scope.page, function (data) {
@@ -86,6 +90,21 @@
           $scope.pageSrc = data;
         });
       }
+    });
+  })
+  
+  
+  .controller('MenuCtrl', function ($scope, $http) {
+    $scope.$watch('query', function (query) {
+      if (query && query.length >= 3) {
+        $scope.searchData = null;
+        $http.get('/search?q=' + query + '&rows=10&wt=json')
+          .success(function (data) {
+            $scope.searchData = data;
+          });
+      }
+      
+      $scope.showSearchResults = query && query.length >= 3;
     });
   })
   

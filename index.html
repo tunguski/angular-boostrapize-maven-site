@@ -20,10 +20,17 @@
   <body ng-controller="AppCtrl">
     
     
-    <div class="container">
-      <header class="project-header">
+    <div ng-cloak class="container">
+      <header class="project-header" ng-controller="MenuCtrl">
         <div class="row">
-          <div class="col-lg-8 col-md-9 col-md-offset-3 col-lg-offset-2">
+          <div class="col-lg-8 col-md-9 col-md-offset-3 col-lg-offset-2 project-header-container">
+            <form class="navbar-form pull-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" ng-model="query"
+                       ng-focus="searchFocus = true" ng-blur="searchFocus = false">
+              </div>
+            </form>            
+
             <h1>
               <a href="/">
                 <span ng-bind="title"></span>
@@ -31,17 +38,32 @@
             </h1>
             <div ng-if="projectVersion" ng-bind="projectVersion"></div>
             <div ng-if="lastPublished" ng-bind="lastPublished"></div>
+            <!-- ng-if="searchFocus && showSearchResults" -->
+            <div class="search-results" ng-if="searchData.response.docs.length > 0">
+              <ul class="list-group">
+                <li href="#" class="list-group-item" ng-repeat="element in searchData.response.docs">
+                  <a ng-href="#/_views/repository/search.html?g={{ element.g }}&a={{ element.a }}" 
+                     ng-bind="element.a"></a>
+                  ::
+                  <a ng-href="#/_views/repository/search.html?g={{ element.g }}" 
+                     ng-bind="element.g"></a>
+                  ::
+                  <a ng-href="#/_views/repository/search.html?g={{ element.g }}&a={{ element.a }}&v={{ element.latestVersion }}" 
+                     ng-bind="element.latestVersion"></a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </header>
     </div>
     
     
-    <div class="container page-presentation" ng-include="pagePresentation">
+    <div ng-cloak class="container page-presentation" ng-include="pagePresentation">
     </div>
     
     
-    <footer ng-controller="FooterCtrl">
+    <footer ng-cloak ng-controller="FooterCtrl">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-9 col-md-offset-3 col-lg-offset-2" ng-bind-html="footerHtml">
@@ -67,22 +89,19 @@
       <i class="glyphicon glyphicon-arrow-up"></i>
     </div>
     
+    <!-- external libraries -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular-sanitize.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular-route.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular-animate.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular-aria.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.0/angular.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.0/angular-sanitize.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="//rawgit.com/twbs/bootstrap/master/js/affix.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/8.4/highlight.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/8.4.0/languages/1c.min.js"></script>
-    
-<!--     <script type="text/javascript" src="//rawgit.com/hammerjs/hammer.js/master/hammer.js"></script>
-    <script type="text/javascript" src="//rawgit.com/olivernn/lunr.js/master/lunr.js"></script>
-     -->
+
+    <!-- main -->
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
 
     <!-- services -->
     <script type="text/javascript" src="js/services/pageCache.js"></script>
@@ -90,17 +109,20 @@
     <script type="text/javascript" src="js/services/menuMemory.js"></script>
     <script type="text/javascript" src="js/services/siteScanner.js"></script>
     <script type="text/javascript" src="js/services/framedViewService.js"></script>
-
-    <!-- reports -->
-    <script type="text/javascript" src="js/reports/reports-list.js"></script>
-    <script type="text/javascript" src="js/reports/linkage.js"></script>
-    <script type="text/javascript" src="js/reports/site-map.js"></script>
-    <script type="text/javascript" src="js/reports/class-references.js"></script>
     
     <!-- views -->
     <script type="text/javascript" src="js/views/default.js"></script>
     <script type="text/javascript" src="js/views/fluido.js"></script>
     <script type="text/javascript" src="js/views/jxr.js"></script>
     <script type="text/javascript" src="js/views/javadoc.js"></script>
+
+    <!-- repository -->
+    <script type="text/javascript" src="js/repository/search.js"></script>
+    
+    <!-- reports -->
+    <script type="text/javascript" src="js/reports/reports-list.js"></script>
+    <script type="text/javascript" src="js/reports/linkage.js"></script>
+    <script type="text/javascript" src="js/reports/site-map.js"></script>
+    <script type="text/javascript" src="js/reports/class-references.js"></script>
   </body>
 </html>

@@ -5,7 +5,7 @@
   })
   .controller('LinkageNaviCtrl', function ($scope) {
   })
-  .controller('LinkageContentCtrl', function ($scope) {
+  .controller('LinkageContentCtrl', function ($scope, config) {
     $scope.countErrors = function (element) {
       var count = 0;
       angular.forEach(element, function (value) {
@@ -30,10 +30,10 @@
     };
     
     $scope.trimRedirect = function (link) {
-      if (link.indexOf('/maven/') == 0) {
-        link = link.substr('/maven'.length);
-      } else if (link.indexOf('maven/') == 0) {
-        link = link.substr('maven/'.length);
+      if (link.indexOf('/' + config.base) == 0) {
+        link = link.substr(config.base.length);
+      } else if (link.indexOf(config.base) == 0) {
+        link = link.substr(config.base.length);
       }
       
       return link.length ? link : '/';

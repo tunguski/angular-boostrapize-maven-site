@@ -7,7 +7,7 @@
       baseConfiguration: function ($scope) {
         $scope.$watch('pageSrc', function (pageSrc) {
           $scope.mvn.site = $(pageSrc);
-          $rootScope.title = 'Apache Maven';
+          $rootScope.title = 'Apache ';
         });
 
 
@@ -31,11 +31,16 @@
 
 
         $scope.loadFrame = function (frameName, successFn) {
-          var frameSrc = $scope.pageSrc.match(
-            new RegExp('<frame src="(.*?)" name="' + frameName + '"'))[1];
-          var base = $location.absUrl().substr(0, $location.absUrl().lastIndexOf('/') + 1);
+          var match = $scope.pageSrc.match(new RegExp('<frame src="(.*?)" name="' + frameName + '"'));
+          if (match) {
+            var frameSrc = $scope.pageSrc.match(
+              new RegExp('<frame src="(.*?)" name="' + frameName + '"'))[1];
+            var base = $location.absUrl().substr(0, $location.absUrl().lastIndexOf('/') + 1);
 
-          $scope.page(base + frameSrc, frameName, successFn);
+            $scope.page(base + frameSrc, frameName, successFn);
+          }
+          
+          return frameSrc;
         };
 
 
@@ -46,12 +51,17 @@
           $scope.loadFrame('packageFrame', function (data, url) {
             $scope.packageFrameUrl = url;
           });
-          $scope.loadFrame('classFrame');
+          
+          // if frame does not exist, probably it's redirection to single javadoc page
+          if (!$scope.loadFrame('classFrame')) {
+            $scope.mvn['classFrame'         ] = mvn.site;
+            $scope.mvn['classFrame' + 'Path'] = $location.path();
+          }
         });
 
 
         $scope.page = function (href, frameName, successFn) {
-          pageCache.load(href.replace(/#/g, 'maven'), function (data) {
+          pageCache.load(href.replace(/#/g, ''), function (data) {
             if (!data.jxr) {
               data.jxr = $(data.trimmed);
               data.jxr.find('a[href]').each(function () {
