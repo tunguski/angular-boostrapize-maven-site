@@ -24,6 +24,16 @@
   angular.module('ngBootstrapizeMaven', ['ui.bootstrap', 'ngSanitize'])
   
   
+  .run(function ($rootScope) {
+    $rootScope.scopeSetter = function (field) {
+      var self = this;
+      return function (value) {
+        self[field] = value;
+      };
+    };
+  })
+  
+  
   .controller('AppCtrl', function ($scope, $http, $location, pageCache, siteScanner, config) {
     $scope.scrollToTop = function () {
         $('html, body').animate({ scrollTop: 0 }, 100);
@@ -94,18 +104,17 @@
   })
   
   
-  .controller('MenuCtrl', function ($scope, $http) {
+  .controller('MenuCtrl', function ($scope, mvnRepository, $timeout) {
     $scope.$watch('query', function (query) {
-      if (query && query.length >= 3) {
-        $scope.searchData = null;
-        $http.get('/search?q=' + query + '&rows=10&wt=json')
-          .success(function (data) {
-            $scope.searchData = data;
-          });
-      }
-      
+      mvnRepository.search(query).then($scope.scopeSetter('searchResults'));
       $scope.showSearchResults = query && query.length >= 3;
     });
+    
+    $scope.hideSearchResults = function () {
+      $timeout(function () {
+        $scope.searchFocus = false;
+      }, 100);
+    };
   })
   
   

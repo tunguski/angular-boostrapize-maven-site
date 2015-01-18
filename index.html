@@ -27,7 +27,7 @@
             <form class="navbar-form pull-right" role="search">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search" ng-model="query"
-                       ng-focus="searchFocus = true" ng-blur="searchFocus = false">
+                       ng-focus="searchFocus = true" ng-blur="hideSearchResults()">
               </div>
             </form>            
 
@@ -39,9 +39,10 @@
             <div ng-if="projectVersion" ng-bind="projectVersion"></div>
             <div ng-if="lastPublished" ng-bind="lastPublished"></div>
             <!-- ng-if="searchFocus && showSearchResults" -->
-            <div class="search-results" ng-if="searchData.response.docs.length > 0">
+            <div class="search-results" 
+                 ng-show="searchFocus && showSearchResults && searchResults.response.docs.length > 0">
               <ul class="list-group">
-                <li href="#" class="list-group-item" ng-repeat="element in searchData.response.docs">
+                <li href="#" class="list-group-item" ng-repeat="element in searchResults.response.docs">
                   <a ng-href="#/_views/repository/search.html?g={{ element.g }}&a={{ element.a }}" 
                      ng-bind="element.a"></a>
                   ::
@@ -106,6 +107,7 @@
     <!-- services -->
     <script type="text/javascript" src="js/services/pageCache.js"></script>
     <script type="text/javascript" src="js/services/mvnLinker.js"></script>
+    <script type="text/javascript" src="js/services/mvnRepository.js"></script>
     <script type="text/javascript" src="js/services/menuMemory.js"></script>
     <script type="text/javascript" src="js/services/siteScanner.js"></script>
     <script type="text/javascript" src="js/services/framedViewService.js"></script>
