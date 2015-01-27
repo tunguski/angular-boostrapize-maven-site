@@ -25,6 +25,7 @@ default maven site plugin.
 | Subject                  | What's to be done                                           |
 | --------------------:    | :---------------------------------------------------------- |
 | **Look & Feel**          | In-page anchors are broken                                  |
+|                          | Keep menu if moved to subdir and there is no new menu       |
 | **Page header**          | Whole breadcrumb is one link, should be more intelligent    |
 | **Java source (JXR)**    | Packages and classes list rework.                           |
 | **Javadocs**             | Packages and classes list rework.                           |
