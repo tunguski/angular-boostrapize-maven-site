@@ -3,14 +3,17 @@
 The goal of this project is to modernize maven generated sites without changing
 default maven site plugin.
 
+You may see effect at [maven.matsuo-it.com](http://maven.matsuo-it.com).
+
 # What's done?
 
 | Subject                  | What's done                                                 |
 | --------------------:    | :---------------------------------------------------------- |
 | **Look & Feel**          | Mobile first                                                |
 |                          | Responsive by design                                        |
-|                          | `Bootstrap 3.3` for layout                                  |
-|                          | `Angular 1.3` for dynamic parts                             |
+|                          | **[beta]** Skins from [bootswatch.com](http://bootswatch.com)! |
+|                          | [Bootstrap 3.3](http://getbootstrap.com) for layout         |
+|                          | [Angular 1.4](https://angularjs.org) for dynamic parts      |
 |                          | Imitate dynamic menu folding - remember state between pages |
 | **Code highlight**       | Automatic code parts detection based on [highlightjs.org](https://highlightjs.org) |
 | **Table of content**     | Built basing on headers (`h1`, `h2`, `h3`) from page source |
