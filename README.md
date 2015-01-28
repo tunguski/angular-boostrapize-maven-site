@@ -31,6 +31,7 @@ You may see effect at [maven.matsuo-it.com](http://maven.matsuo-it.com).
 | **Look & Feel**          | In-page anchors are broken                                  |
 |                          | Keep menu if moved to subdir and there is no new menu       |
 |                          | Images from page content should be displayed                |
+|                          | Code highlighting matching chosen skin                      |
 | **Page header**          | Whole breadcrumb is one link, should be more intelligent    |
 | **Java source (JXR)**    | Packages and classes list rework.                           |
 | **Javadocs**             | Packages and classes list rework.                           |
