@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   .service('pageCache', function ($http, mvnLinker, config) {
     var memory = {};
     
@@ -24,7 +24,9 @@
       },
       
       load: function (path, successFn, failureFn, relativeTo) {
-        path = path.replace(/^\/?#/, '/' + config.base)
+        path = path
+        //.replace(/(^\/?|:\/\/[^#]+)#/, '$1/' + config.base)
+          .replace(/(^\/|)?#/, '/' + config.base)
           .replace(/\/\//g, '/')
           .replace(/:\//g, '://');
         

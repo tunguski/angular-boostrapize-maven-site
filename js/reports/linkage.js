@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   .controller('LinkagePageCtrl', function ($scope, siteScanner) {
     $scope.siteScanner = siteScanner;
   })

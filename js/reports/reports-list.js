@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   .controller('ReportsListPageCtrl', function ($scope, $rootScope) {
     if (!$rootScope.d3Initialized) {
       var s = document.createElement('script');

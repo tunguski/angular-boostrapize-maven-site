@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   
   
   .controller('JavaDocCtrl', function ($scope, framedViewService) {

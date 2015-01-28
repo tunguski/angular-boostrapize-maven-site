@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   .service('mvnLinker', function ($rootScope, $location, config) {
     function trimFileAndTrailingSlashes(hash) {
       // if hash ends with file, skip it

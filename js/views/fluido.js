@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   
   
   .controller('FluidoSitePageCtrl', function ($scope, $rootScope, $timeout) {

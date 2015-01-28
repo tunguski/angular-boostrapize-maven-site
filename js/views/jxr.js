@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   
   
   .controller('JxrCtrl', function ($scope, framedViewService) {

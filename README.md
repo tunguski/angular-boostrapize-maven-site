@@ -11,7 +11,7 @@ You may see effect at [maven.matsuo-it.com](http://maven.matsuo-it.com).
 | --------------------:    | :---------------------------------------------------------- |
 | **Look & Feel**          | Mobile first                                                |
 |                          | Responsive by design                                        |
-|                          | **[beta]** Skins from [bootswatch.com](http://bootswatch.com)! |
+|                          | Skins from [bootswatch.com](http://bootswatch.com)! LocalStorage used for skin memory. |
 |                          | [Bootstrap 3.3](http://getbootstrap.com) for layout         |
 |                          | [Angular 1.4](https://angularjs.org) for dynamic parts      |
 |                          | Imitate dynamic menu folding - remember state between pages |

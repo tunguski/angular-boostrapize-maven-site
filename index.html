@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="ngBootstrapizeMaven">
+<html ng-app="abms">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     
@@ -7,7 +7,7 @@
 
     <title>Angular-Bootstrapized Maven Site</title>
 
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" id="theme-link" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/xcode.min.css">
     
     <!-- https://github.com/IanLunn/Hover -->
@@ -56,6 +56,11 @@
             </div>
           </div>
         </div>
+        <div class="theme-div">
+          <select ng-model="selectedTheme"
+                  ng-options="theme.name for theme in themes track by theme.name">
+          </select>
+        </div>
       </header>
     </div>
     
@@ -93,8 +98,8 @@
     <!-- external libraries -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.0/angular.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.0/angular-sanitize.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.2/angular.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.2/angular-sanitize.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="//rawgit.com/twbs/bootstrap/master/js/affix.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/8.4/highlight.min.js"></script>

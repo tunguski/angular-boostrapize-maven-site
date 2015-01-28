@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   
   
   .service('framedViewService', function ($rootScope, $http, $location, pageCache) {
@@ -61,7 +61,7 @@
 
 
         $scope.page = function (href, frameName, successFn) {
-          pageCache.load(href.replace(/#/g, ''), function (data) {
+          pageCache.load(href, function (data) {
             if (!data.jxr) {
               data.jxr = $(data.trimmed);
               data.jxr.find('a[href]').each(function () {

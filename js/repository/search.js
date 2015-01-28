@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   
   
   .controller('RepositorySearchCtrl', function ($scope, $location) {
@@ -19,18 +19,25 @@
   
   
   .controller('RepositorySearchContentCtrl', function ($scope, mvnRepository) {
-    $scope.query = '';
-    if ($scope.search.a) {
-      $scope.query = $scope.query + 'a:"' + $scope.search.a + '"';
+    function setSearchQuery() {
+      $scope.query = '';
+      if ($scope.search.a) {
+        $scope.query = $scope.query + 'a:"' + $scope.search.a + '"';
+      }
+      if ($scope.search.g) {
+        $scope.query =  $scope.query + 
+          ($scope.query.length > 0 ? ' AND ' : '') + 'g:"' + $scope.search.g + '" ';
+      }
+      if ($scope.search.v) {
+        $scope.query = $scope.query + 
+          ($scope.query.length > 0 ? ' AND ' : '') + 'v:"' + $scope.search.v + '" ';
+      }
     }
-    if ($scope.search.g) {
-      $scope.query =  $scope.query + 
-        ($scope.query.length > 0 ? ' AND ' : '') + 'g:"' + $scope.search.g + '" ';
-    }
-    if ($scope.search.v) {
-      $scope.query = $scope.query + 
-        ($scope.query.length > 0 ? ' AND ' : '') + 'v:"' + $scope.search.v + '" ';
-    }
+    setSearchQuery();
+    
+    $scope.$on('$locationChangeSuccess', function () {
+      setSearchQuery();
+    });
     
     
     $scope.$watch('query', function (query) {

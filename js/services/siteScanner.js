@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   .service('siteScanner', function (pageCache, config) {
     var scanned;
 

@@ -1,5 +1,5 @@
 (function() {
-  angular.module('ngBootstrapizeMaven')
+  angular.module('abms')
   .service('mvnRepository', function ($http, $timeout, $q) {
     var index
     

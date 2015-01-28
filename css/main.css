@@ -72,6 +72,12 @@ header.project-header h1 .pull-right {
   font-size: 16px;
 }
 
+.theme-div {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 /* search-results */
 
 .search-results {
@@ -135,6 +141,10 @@ header.project-header h1 .pull-right {
 
 .main-body {
   text-align: justify;
+}
+
+h1, h2, h3, h4, h5, header {
+  text-align: left;
 }
 
 /* jxr and javadocs */

@@ -21,7 +21,7 @@
 
 
 (function() {
-  angular.module('ngBootstrapizeMaven', ['ui.bootstrap', 'ngSanitize'])
+  angular.module('abms', ['ui.bootstrap', 'ngSanitize'])
   
   
   .run(function ($rootScope) {
@@ -115,6 +115,49 @@
         $scope.searchFocus = false;
       }, 100);
     };
+    
+    $scope.themes = [
+      { name: 'Bootstrap 3.3', href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css' }
+    ];
+    angular.forEach([
+      'Cerulean',
+      'Cosmo',
+      'Cyborg',
+      'Darkly',
+      'Flatly',
+      'Journal',
+      'Lumen',
+      'Paper',
+      'Readable',
+      'Sandstone',
+      'Simplex',
+      'Slate',
+      'Spacelab',
+      'Superhero',
+      'United',
+      'Yeti'
+    ], function (element) {
+      $scope.themes.push({
+        name: element, 
+        href: '//bootswatch.com/' + element.toLowerCase() + '/bootstrap.min.css'
+      });
+    });
+    
+    $scope.$watch('selectedTheme', function (selectedTheme) {
+      if (!selectedTheme) {
+        $scope.selectedTheme = selectedTheme = $scope.themes[0];
+      }
+      
+      $('link#theme-link').attr('href', selectedTheme.href);
+
+      if (localStorage) {
+        localStorage.setItem('site.theme', JSON.stringify($scope.selectedTheme));
+      }
+    });
+    
+    if (localStorage && localStorage.getItem('site.theme')) {
+      $scope.selectedTheme = JSON.parse(localStorage.getItem('site.theme'));
+    }
   })
   
   
