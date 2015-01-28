@@ -12,11 +12,12 @@ default maven site plugin.
 |                          | `Bootstrap 3.3` for layout                                  |
 |                          | `Angular 1.3` for dynamic parts                             |
 |                          | Imitate dynamic menu folding - remember state between pages |
-| **Code highlight**       | Automatic code parts detection based on `highlightjs.org`   |
+| **Code highlight**       | Automatic code parts detection based on [highlightjs.org](https://highlightjs.org) |
 | **Table of content**     | Built basing on headers (`h1`, `h2`, `h3`) from page source |
 | **Page header**          | Created from breadcrumb                                     |
 | **Java source (JXR)**    | Built without frames with same style as main page           |
 | **Javadocs**             | Built without frames with same style as main page           |
+| **Repository search**    | **[beta]** Simple search based on [search.maven.org](https://search.maven.org) |
 | **Reports**              | Dynamic creating reports from page source:                  |
 |                          | **Linkage report** - shows broken links (only within page, no external links examined), size of site etc. |
 
@@ -30,7 +31,7 @@ default maven site plugin.
 | **Page header**          | Whole breadcrumb is one link, should be more intelligent    |
 | **Java source (JXR)**    | Packages and classes list rework.                           |
 | **Javadocs**             | Packages and classes list rework.                           |
-| **Page indexer**         | Create database in `firebase.com` containing indexing results for searches and reports |
+| **Page indexer**         | Create database in [firebase.com](https://firebase.com) containing indexing results for searches and reports |
 | **Page search**          | Create dynamic search that will show occurences of text in whole site with links |
 | **Repository search**    | Integrate repository search that will still be in site's style |
 | **Reports**              |                                                             |
