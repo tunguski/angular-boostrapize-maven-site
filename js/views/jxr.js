@@ -12,10 +12,6 @@
   
   
   .controller('JxrAllClassesCtrl', function ($scope) {
-    $scope.executeWithSite('packageFrame', function (mvn, frame) {
-      mvn.allClasses = frame.find('li a');
-      $scope.elements = $scope.outerHtml(mvn.allClasses);
-    });
   })
   
   

@@ -159,6 +159,10 @@ h1, h2, h3, h4, h5, header {
   text-align: justify;
 }
 
+.jxr-presentation .project-element ul {
+  padding-left: 10px;
+}
+
 
 
 /* download-navigation */

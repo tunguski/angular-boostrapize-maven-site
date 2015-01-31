@@ -12,20 +12,58 @@
 
 
         $scope.project = {
-          src: []
+          name: '',
+          elements: []
         };
 
+        
+        function getElement(path, base) {
+          var element = _.findWhere(base.elements, { name: path });
+          if (!element) {
+            element = {
+              name: path,
+              elements: []
+            };
+            base.elements.push(element);
+          }
+          return element;
+        }
+        
+        
+        function getPackage(pathElements) {
+          var base = $scope.project;
+
+          angular.forEach(pathElements, function (part) {
+            base = getElement(part, base);
+          });
+          
+          return base;
+        }
+        
 
         $scope.executeWithSite('packageListFrame', function (mvn, frame) {
           mvn.packageList = frame.find('li a');
-          $scope.elements = $scope.outerHtml(mvn.packageList);
-
-          function getElement(path, base) {
-            var element = _.findWhere(base.src, { name: path });
-          }
+          $scope.packages = $scope.outerHtml(mvn.packageList);
 
           angular.forEach($scope.elements, function (package) {
-            var packages = $(package).text().split('.');
+            getPackage($(package).text().split('.'));
+          });
+        });
+
+
+        $scope.executeWithSite('packageFrame', function (mvn, frame) {
+          mvn.allClasses = frame.find('li a');
+          $scope.classes = $scope.outerHtml(mvn.allClasses);
+
+          angular.forEach($scope.classes, function (clazz) {
+            var path = $(clazz).data('href').replace(/.html/, '').split('/').slice(1);
+            
+            var package = getPackage(path.slice(0, -1));
+            
+            package.elements.push({
+              name: path.slice(-1)[0],
+              isClass: true
+            });
           });
         });
 
@@ -35,9 +73,10 @@
           if (match) {
             var frameSrc = $scope.pageSrc.match(
               new RegExp('<frame src="(.*?)" name="' + frameName + '"'))[1];
-            var base = $location.absUrl().substr(0, $location.absUrl().lastIndexOf('/') + 1);
+            // if location ends with file, remove it
+            var base = $location.absUrl().replace(/(^|\/)[^./]+\.[^/]+$/, '');
 
-            $scope.page(base + frameSrc, frameName, successFn);
+            $scope.page(base + '/' + frameSrc, frameName, successFn);
           }
           
           return frameSrc;
@@ -47,9 +86,10 @@
         $scope.executeWithSite('', function (mvn) {
           $scope.loadFrame('packageListFrame', function (data, url) {
             $scope.packageListFrameUrl = url;
-          });
-          $scope.loadFrame('packageFrame', function (data, url) {
-            $scope.packageFrameUrl = url;
+            // load classes after loading packages
+            $scope.loadFrame('packageFrame', function (data, url) {
+              $scope.packageFrameUrl = url;
+            });
           });
           
           // if frame does not exist, probably it's redirection to single javadoc page
