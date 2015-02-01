@@ -19,7 +19,9 @@ You may see effect at [maven.matsuo-it.com](http://maven.matsuo-it.com).
 | **Table of content**     | Built basing on headers (`h1`, `h2`, `h3`) from page source |
 | **Page header**          | Created from breadcrumb                                     |
 | **Java source (JXR)**    | Built without frames with same style as main page           |
+|                          | Packages and classes list reworked. Added collapsing, grouping. |
 | **Javadocs**             | Built without frames with same style as main page           |
+|                          | Packages and classes list reworked. Added collapsing, grouping. |
 | **Repository search**    | **[beta]** Simple search based on [search.maven.org](https://search.maven.org) |
 | **Reports**              | Dynamic creating reports from page source:                  |
 |                          | **Linkage report** - shows broken links (only within page, no external links examined), size of site etc. |
@@ -33,8 +35,8 @@ You may see effect at [maven.matsuo-it.com](http://maven.matsuo-it.com).
 |                          | Images from page content should be displayed                |
 |                          | Code highlighting matching chosen skin                      |
 | **Page header**          | Whole breadcrumb is one link, should be more intelligent    |
-| **Java source (JXR)**    | Packages and classes list rework.                           |
-| **Javadocs**             | Packages and classes list rework.                           |
+| **Java source (JXR)**    | Search provider for packages, classes and sources.          |
+| **Javadocs**             | Search provider for packages, classes and sources.          |
 | **Page indexer**         | Create database in [firebase.com](https://firebase.com) containing indexing results for searches and reports |
 | **Page search**          | Create dynamic search that will show occurences of text in whole site with links |
 | **Repository search**    | Integrate repository search that will still be in site's style |
