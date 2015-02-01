@@ -14,19 +14,19 @@
     <div class="table-responsive">
       <table class="table table-condensed">
         <tr>
-          <td>Pages found</td>
+          <td><a ng-click="showType('all')">Pages found</a></td>
           <td ng-bind="siteScanner.report.__meta.pages.all"></td>
         </tr>
         <tr>
-          <td>200 (OK)</td>
+          <td><a ng-click="showType(200)">200 (OK)</a></td>
           <td ng-bind="siteScanner.report.__meta.pages['200']"></td>
         </tr>
         <tr>
-          <td>404 (Not found)</td>
+          <td><a ng-click="showType(404)">404 (Not found)</a></td>
           <td ng-bind="siteScanner.report.__meta.pages['404']"></td>
         </tr>
         <tr>
-          <td>403 (Forbidden)</td>
+          <td><a ng-click="showType(403)">403 (Forbidden)</a></td>
           <td ng-bind="siteScanner.report.__meta.pages['403']"></td>
         </tr>
         <tr>
@@ -43,7 +43,8 @@
         <th>Page</th>
         <th>Links</th>
       </tr>
-      <tr ng-repeat="(pageName, pageDetails) in siteScanner.report">
+      <tr ng-if="shouldShowPage(pageName, pageDetails)"
+          ng-repeat="(pageName, pageDetails) in siteScanner.report">
         <td>
           <span ng-bind="trimRedirect(pageName)"></span>
           <span class="pull-right">
@@ -61,7 +62,8 @@
               <th>Link</th>
               <th>Status</th>
             </tr>
-            <tr ng-repeat="(link, linkDetails) in pageDetails"
+            <tr ng-if="shouldShowPageReference(link, linkDetails)"
+                ng-repeat="(link, linkDetails) in pageDetails"
                 ng-class="linkDetails.status === 404 ? 'danger' : (linkDetails.status === 403 ? 'warning' : (linkDetails.status === 200 ? 'success' : ''))">
               <td ng-bind="trimRedirect(link)"></td>
               <td ng-bind="linkDetails.status || '+'"></td>

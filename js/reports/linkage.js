@@ -3,8 +3,12 @@
   .controller('LinkagePageCtrl', function ($scope, siteScanner) {
     $scope.siteScanner = siteScanner;
   })
+  
+  
   .controller('LinkageNaviCtrl', function ($scope) {
   })
+  
+  
   .controller('LinkageContentCtrl', function ($scope, config) {
     $scope.countErrors = function (element) {
       var count = 0;
@@ -37,8 +41,27 @@
       }
       
       return link.length ? link : '/';
-    }
+    };
+    
+    $scope.type = 'all';
+    $scope.showType = function (type) {
+      $scope.type = type;
+    };
+    
+    $scope.shouldShowPage = function (pageName, pageDetails) {
+      if ($scope.type === 'all') {
+        return true;
+      }
+      
+      return _.findWhere(pageDetails, { status: $scope.type });
+    };
+    
+    $scope.shouldShowPageReference = function (link, linkDetails) {
+      return $scope.type === 'all' || linkDetails.status === $scope.type
+    };
   })
+  
+  
   .controller('LinkageDownloadCtrl', function ($scope) {
   })
   ;
