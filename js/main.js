@@ -66,7 +66,7 @@
           $scope.pagePresentation = '/views/javadoc-page.html';
         }
       } else if (data.indexOf('Rendered using Apache Maven Fluido Skin') >= 0
-                 || data.indexOf('<link rel="stylesheet" href="./css/apache-maven-fluido-') >= 0) {
+                 || data.indexOf('<link rel="stylesheet", href: "./css/apache-maven-fluido-') >= 0) {
         // fluido presentation
         $scope.pagePresentation = '/views/fluido-site-page.html';
       } else if ($location.path().indexOf('/apidocs/') >= 0) {
@@ -117,36 +117,39 @@
     };
     
     $scope.themes = [
-      { name: 'Bootstrap 3.3', href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css' }
-    ];
+      { name: 'Bootstrap 3.3', 
+        href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
+        defaultHlTheme: 'xcode'
+      }];
     angular.forEach([
-      'Cerulean',
-      'Cosmo',
-      'Cyborg',
-      'Darkly',
-      'Flatly',
-      'Journal',
-      'Lumen',
-      'Paper',
-      'Readable',
-      'Sandstone',
-      'Simplex',
-      'Slate',
-      'Spacelab',
-      'Superhero',
-      'United',
-      'Yeti'
+      { name: 'Cerulean', defaultHlTheme: 'xcode' },
+      { name: 'Cosmo', defaultHlTheme: 'xcode' },
+      { name: 'Cyborg', defaultHlTheme: 'monokai_sublime' },
+      { name: 'Darkly', defaultHlTheme: 'monokai_sublime' },
+      { name: 'Flatly', defaultHlTheme: 'xcode' },
+      { name: 'Journal', defaultHlTheme: 'xcode' },
+      { name: 'Lumen', defaultHlTheme: 'xcode' },
+      { name: 'Paper', defaultHlTheme: 'xcode' },
+      { name: 'Readable', defaultHlTheme: 'xcode' },
+      { name: 'Sandstone', defaultHlTheme: 'xcode' },
+      { name: 'Simplex', defaultHlTheme: 'xcode' },
+      { name: 'Slate', defaultHlTheme: 'monokai_sublime' },
+      { name: 'Spacelab', defaultHlTheme: 'xcode' },
+      { name: 'Superhero', defaultHlTheme: 'xcode' },
+      { name: 'United', defaultHlTheme: 'monokai_sublime' },
+      { name: 'Yeti', defaultHlTheme: 'xcode' }
     ], function (element) {
-      $scope.themes.push({
-        name: element, 
-        href: '//bootswatch.com/' + element.toLowerCase() + '/bootstrap.min.css'
-      });
+      element.href = '//bootswatch.com/' + element.name.toLowerCase() + '/bootstrap.min.css';
+      $scope.themes.push(element);
     });
     
     $scope.$watch('selectedTheme', function (selectedTheme) {
       if (!selectedTheme) {
         $scope.selectedTheme = selectedTheme = $scope.themes[0];
       }
+      
+      // set highlight theme as well
+      $scope.selectedHlTheme = _.findWhere($scope.hlThemes, { style: selectedTheme.defaultHlTheme});
       
       $('link#theme-link').attr('href', selectedTheme.href);
 
@@ -155,8 +158,80 @@
       }
     });
     
+    $scope.hlThemes = [];
+    angular.forEach([
+      { title: "Default", style: "default" },
+      { title: "Dark", style: "dark" },
+      { title: "FAR", style: "far" },
+      { title: "IDEA", style: "idea" },
+      { title: "Sunburst", style: "sunburst" },
+      { title: "Zenburn", style: "zenburn" },
+      { title: "Visual Studio", style: "vs" },
+      { title: "Ascetic", style: "ascetic" },
+      { title: "Magula", style: "magula" },
+      { title: "GitHub", style: "github" },
+      { title: "Google Code", style: "googlecode" },
+      { title: "Brown Paper", style: "brown_paper" },
+      { title: "School Book", style: "school_book" },
+      { title: "IR Black", style: "ir_black" },
+      { title: "Solarized - Dark", style: "solarized_dark" },
+      { title: "Solarized - Light", style: "solarized_light" },
+      { title: "Arta", style: "arta" },
+      { title: "Monokai", style: "monokai" },
+      { title: "Monokai Sublime", style: "monokai_sublime" },
+      { title: "XCode", style: "xcode" },
+      { title: "Pojoaque", style: "pojoaque" },
+      { title: "Rainbow", style: "rainbow" },
+      { title: "Tomorrow", style: "tomorrow" },
+      { title: "Tomorrow Night", style: "tomorrow-night" },
+      { title: "Tomorrow Night Bright", style: "tomorrow-night-bright" },
+      { title: "Tomorrow Night Blue", style: "tomorrow-night-blue" },
+      { title: "Tomorrow Night Eighties", style: "tomorrow-night-eighties" },
+      { title: "Railscasts", style: "railscasts" },
+      { title: "Obsidian", style: "obsidian" },
+      { title: "Docco", style: "docco" },
+      { title: "Mono Blue", style: "mono-blue" },
+      { title: "Foundation", style: "foundation" },
+      { title: "Atelier Dun - Dark", style: "atelier-dune.dark" },
+      { title: "Atelier Dun - Light", style: "atelier-dune.light" },
+      { title: "Atelier Forest - Dark", style: "atelier-forest.dark" },
+      { title: "Atelier Forest - Light", style: "atelier-forest.light" },
+      { title: "Atelier Heath - Dark", style: "atelier-heath.dark" },
+      { title: "Atelier Heath - Light", style: "atelier-heath.light" },
+      { title: "Atelier Lakeside - Dark", style: "atelier-lakeside.dark" },
+      { title: "Atelier Lakeside - Light", style: "atelier-lakeside.light" },
+      { title: "Atelier Seaside - Dark", style: "atelier-seaside.dark" },
+      { title: "Atelier Seaside - Light", style: "atelier-seaside.light" },
+      { title: "Paraíso - Dark", style: "paraiso.dark" },
+      { title: "Paraíso - Light", style: "paraiso.light" },
+      { title: "Colorbrewer", style: "color-brewer" },
+      { title: "Codepen.io Embed", style: "codepen-embed" },
+      { title: "Kimbie - Dark", style: "kimbie.dark" },
+      { title: "Kimbie - Light", style: "kimbie.light" },
+      { title: "Hybrid", style: "hybrid" },
+      { title: "Darkula", style: "darkula" }
+    ], function (element) {
+      element.href = '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/' + element.style + '.min.css';
+      element.name = element.title;
+      $scope.hlThemes.push(element);
+    });
+    
+    $scope.$watch('selectedHlTheme', function (selectedHlTheme) {
+      if (!selectedHlTheme) {
+        $scope.selectedHlTheme = selectedHlTheme = $scope.hlThemes[0];
+      }
+      
+      $('link#hl-theme-link').attr('href', selectedHlTheme.href);
+
+      if (localStorage) {
+        localStorage.setItem('site.hlTheme', JSON.stringify($scope.selectedHlTheme));
+      }
+    });
+    
+    
     if (localStorage && localStorage.getItem('site.theme')) {
       $scope.selectedTheme = JSON.parse(localStorage.getItem('site.theme'));
+      $scope.selectedHlTheme = JSON.parse(localStorage.getItem('site.hlTheme'));
     }
   })
   

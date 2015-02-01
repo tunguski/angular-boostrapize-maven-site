@@ -78,6 +78,10 @@ header.project-header h1 .pull-right {
   right: 0;
 }
 
+.theme-div div, .theme-div select {
+  width: 100%;
+}
+
 /* search-results */
 
 .search-results {
