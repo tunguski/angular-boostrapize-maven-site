@@ -21,10 +21,13 @@
     var siteScanner = {
       isScanning: false,
       report: scanned,
+      toScan: [],
       
       clear: function () {
         localStorage.removeItem('siteScannerReport');
         setupScanned();
+        siteScanner.report = scanned;
+        siteScanner.toScan.length = 0;
       },
       
       stop: function () {
@@ -38,15 +41,15 @@
         siteScanner.isScanning = true;
         
         pageCache.load('/' + config.base, function (data) {
-          var toScan = siteScanner.toScan = 
-              [[ '/' + config.base, data.processed.find('a[href^="#"]') ]];
+          var toScan = siteScanner.toScan;
+          toScan.push([ '/' + config.base, data.processed.find('a[href^="#"]') ]);
           
           function scanNext() {
-            if (!siteScanner.isScanning) {
+            if (!siteScanner.isScanning || toScan.length === 0) {
               return;
             }
             
-            while (!toScan[0][1].length && toScan.length) {
+            while (toScan.length > 0 && !toScan[0][1].length && toScan.length) {
               toScan.shift();
               if (localStorage) {
                 //localStorage.setItem('siteScannerReport', JSON.stringify(scanned));

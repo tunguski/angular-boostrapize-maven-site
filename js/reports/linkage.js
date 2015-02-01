@@ -57,7 +57,8 @@
     };
     
     $scope.shouldShowPageReference = function (link, linkDetails) {
-      return $scope.type === 'all' || linkDetails.status === $scope.type
+      return $scope.type === 'all' 
+          || (linkDetails && linkDetails.status === $scope.type);
     };
   })
   
