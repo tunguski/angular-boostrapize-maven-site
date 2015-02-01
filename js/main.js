@@ -135,8 +135,8 @@
       { name: 'Simplex', defaultHlTheme: 'xcode' },
       { name: 'Slate', defaultHlTheme: 'monokai_sublime' },
       { name: 'Spacelab', defaultHlTheme: 'xcode' },
-      { name: 'Superhero', defaultHlTheme: 'xcode' },
-      { name: 'United', defaultHlTheme: 'monokai_sublime' },
+      { name: 'Superhero', defaultHlTheme: 'solarized_dark' },
+      { name: 'United', defaultHlTheme: 'xcode' },
       { name: 'Yeti', defaultHlTheme: 'xcode' }
     ], function (element) {
       element.href = '//bootswatch.com/' + element.name.toLowerCase() + '/bootstrap.min.css';
