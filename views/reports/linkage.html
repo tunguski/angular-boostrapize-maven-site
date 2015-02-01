@@ -30,6 +30,10 @@
           <td ng-bind="siteScanner.report.__meta.pages['403']"></td>
         </tr>
         <tr>
+          <td><a ng-click="showType(500)">500 (Internal Server Error)</a></td>
+          <td ng-bind="siteScanner.report.__meta.pages['500']"></td>
+        </tr>
+        <tr>
           <td>Waiting for processing</td>
           <td ng-bind="siteScanner.toScan.length"></td>
         </tr>
@@ -64,7 +68,7 @@
             </tr>
             <tr ng-if="shouldShowPageReference(link, linkDetails)"
                 ng-repeat="(link, linkDetails) in pageDetails"
-                ng-class="linkDetails.status === 404 ? 'danger' : (linkDetails.status === 403 ? 'warning' : (linkDetails.status === 200 ? 'success' : ''))">
+                ng-class="{ warning: linkDetails.status === 403, danger: linkDetails.status === 404, success: linkDetails.status === 200, info: linkDetails.status === 500 }">
               <td ng-bind="trimRedirect(link)"></td>
               <td ng-bind="linkDetails.status || '+'"></td>
             </tr>

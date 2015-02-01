@@ -8,7 +8,8 @@
         all: 1,
         '200': 1,
         '404': 0,
-        '403': 0
+        '403': 0,
+        '500': 0
       } } };
       scanned['/' + config.base] = {};
     }
@@ -71,7 +72,8 @@
                 }
                 scanned[href] = {}
                 scanned.__meta.pages.all = scanned.__meta.pages.all + 1;
-                scanned.__meta.pages['200'] = scanned.__meta.pages['200'] + 1;
+                scanned.__meta.pages[pageData.status] = 
+                  (scanned.__meta.pages[pageData.status] || 0) + 1;
                 scanNext();
               }
 
