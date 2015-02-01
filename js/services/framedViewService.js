@@ -45,8 +45,9 @@
           mvn.packageList = frame.find('li a');
           $scope.packages = $scope.outerHtml(mvn.packageList);
 
-          angular.forEach($scope.elements, function (package) {
-            getPackage($(package).text().split('.'));
+          angular.forEach($scope.packages, function (package) {
+            var element = getPackage($(package).text().split('.'));
+            element.source = package;
           });
         });
 
@@ -62,7 +63,8 @@
             
             package.elements.push({
               name: path.slice(-1)[0],
-              isClass: true
+              isClass: true,
+              source: clazz
             });
           });
         });
