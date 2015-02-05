@@ -39,8 +39,8 @@
                 <span ng-bind="title"></span>
               </a>
             </h1>
-            <div ng-if="projectVersion" ng-bind="projectVersion"></div>
-            <div ng-if="lastPublished" ng-bind="lastPublished"></div>
+            <div ng-if="projectVersion" class="text-muted" ng-bind="projectVersion"></div>
+            <div ng-if="lastPublished" class="text-muted" ng-bind="lastPublished"></div>
             <!-- ng-if="searchFocus && showSearchResults" -->
             <div class="search-results" 
                  ng-show="searchFocus && showSearchResults && searchResults.response.docs.length > 0">
@@ -80,7 +80,7 @@
     
     
     <footer ng-cloak ng-controller="FooterCtrl">
-      <div class="container">
+      <div class="container text-muted">
         <div class="row">
           <div class="col-lg-8 col-md-9 col-md-offset-3 col-lg-offset-2" ng-bind-html="footerHtml">
           </div>
