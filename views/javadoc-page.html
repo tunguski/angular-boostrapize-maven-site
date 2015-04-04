@@ -1,6 +1,6 @@
 <div class="row jxr-presentation" ng-controller="JavaDocCtrl">
   
-  <div class="col-md-2 main-navigation">
+  <div class="col-sm-2 main-navigation">
     <div ng-show="project">
       <h4 ng-click="page(packageListFrameUrl)">Project content</h4>
       <div project-element="project" click-fn="page"></div>
@@ -8,7 +8,7 @@
   </div>
 
 
-  <div class="col-md-10 main-body" ng-controller="JavaDocSummaryCtrl">
+  <div class="col-sm-10 main-body" ng-controller="JavaDocSummaryCtrl">
     <h4>Summary</h4>
     <div ng-repeat="element in summary">
       <dynamic-element message="element"></dynamic-element>

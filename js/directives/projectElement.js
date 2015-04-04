@@ -1,5 +1,5 @@
 angular.module('abms')
-  .directive('projectElement', function factory($compile) {
+  .directive('projectElement', function ($compile) {
     return {
       restrict: 'EA',
       transclude: true,

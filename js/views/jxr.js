@@ -2,8 +2,14 @@
   angular.module('abms')
   
   
-  .controller('JxrCtrl', function ($scope, framedViewService) {
+  .controller('JxrCtrl', function ($scope, $rootScope, framedViewService) {
     framedViewService.baseConfiguration($scope);
+    
+    $rootScope.fullWindow = true;
+    
+    $scope.$on("$destroy", function() {
+      $rootScope.fullWindow = false;
+    });
   })
   
   

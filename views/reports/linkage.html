@@ -1,8 +1,8 @@
 <div class="row" ng-controller="LinkagePageCtrl">
-  <div class="col-lg-2 col-md-3 main-navigation" ng-controller="LinkageNaviCtrl">
+  <div class="col-lg-2 col-sm-3 main-navigation" ng-controller="LinkageNaviCtrl">
   </div>
 
-  <div class="col-lg-8 col-md-9 main-body" ng-controller="LinkageContentCtrl">
+  <div class="col-lg-8 col-sm-9 main-body" ng-controller="LinkageContentCtrl">
     <div class="btn-group">
       <button class="btn btn-primary" ng-click="siteScanner.scan()">Start building report</button>
       <button class="btn btn-default" ng-click="siteScanner.stop()">Stop building report</button>
@@ -79,7 +79,7 @@
     </table>
   </div>
 
-  <div class="col-lg-2 col-md-9 col-md-offset-3 col-lg-offset-0 download-navigation" 
+  <div class="col-lg-2 col-sm-9 col-sm-offset-3 col-lg-offset-0 download-navigation" 
        ng-class="{ 'visible-lg-block': isMenu }" 
        ng-controller="LinkageDownloadCtrl">
   </div>

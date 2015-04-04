@@ -9,9 +9,9 @@
     <title>Angular-Bootstrapized Maven Site</title>
 
     <link rel="stylesheet" type="text/css" 
-          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" id="theme-link" 
-          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" id="hl-theme-link" 
           href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/xcode.min.css">
     
@@ -26,7 +26,7 @@
     <div ng-cloak class="container">
       <header class="project-header" ng-controller="MenuCtrl">
         <div class="row">
-          <div class="col-lg-8 col-md-9 col-md-offset-3 col-lg-offset-2 project-header-container">
+          <div class="col-lg-8 col-sm-9 col-sm-offset-3 col-lg-offset-2 project-header-container">
             <form class="navbar-form pull-right" role="search">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search" ng-model="query"
@@ -75,18 +75,19 @@
     </div>
     
     
-    <div ng-cloak class="container page-presentation" ng-include="pagePresentation">
+    <div ng-cloak class="page-presentation" ng-include="pagePresentation"
+         ng-class="fullWindow ? 'container-fluid' : 'container'">
     </div>
     
     
     <footer ng-cloak ng-controller="FooterCtrl">
       <div class="container text-muted">
         <div class="row">
-          <div class="col-lg-8 col-md-9 col-md-offset-3 col-lg-offset-2" ng-bind-html="footerHtml">
+          <div class="col-lg-8 col-sm-9 col-sm-offset-3 col-lg-offset-2" ng-bind-html="footerHtml">
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-8 col-md-9 col-md-offset-3 col-lg-offset-2">
+          <div class="col-lg-8 col-sm-9 col-sm-offset-3 col-lg-offset-2">
             <div class="pull-right">
               <a class="reports-link" href="#/_views/reports/reports-list.html">
                 <i class="glyphicon glyphicon-cog"></i>
@@ -107,10 +108,10 @@
     
     <!-- external libraries -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.2/angular.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.2/angular-sanitize.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-sanitize.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="//rawgit.com/twbs/bootstrap/master/js/affix.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/8.4.0/highlight.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/highlight.js/8.4.0/languages/1c.min.js"></script>

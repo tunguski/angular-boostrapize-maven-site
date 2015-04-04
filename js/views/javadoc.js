@@ -2,8 +2,14 @@
   angular.module('abms')
   
   
-  .controller('JavaDocCtrl', function ($scope, framedViewService) {
+  .controller('JavaDocCtrl', function ($scope, $rootScope, framedViewService) {
     framedViewService.baseConfiguration($scope);
+    
+    $rootScope.fullWindow = true;
+    
+    $scope.$on("$destroy", function() {
+      $rootScope.fullWindow = false;
+    });
   })
   
   
