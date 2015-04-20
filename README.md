@@ -43,3 +43,16 @@ You may see effect at [maven.matsuo-it.com](http://maven.matsuo-it.com).
 | **Repository search**    | Integrate repository search that will still be in site's style |
 | **Reports**              |                                                             |
 |                          | **D3 page map** - graphical display of site                 |
+
+# How to use it?
+
+At [maven.matsuo-it.com](maven.matsuo-it.com) there is a Apache server 
+configured to serve this project as static files. Additional configuration is
+needed to proxy `/maven` site's subdirectory to 
+[maven.apache.org](maven.apache.org).
+
+That's all. 
+
+If you want to use it with your own maven generated site, remember to 
+configure Apache that it proxy `/maven` site's subdirectory to your 
+generated site.

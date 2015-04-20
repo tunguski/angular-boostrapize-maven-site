@@ -35,9 +35,7 @@
     }
     setSearchQuery();
     
-    $scope.$on('$locationChangeSuccess', function () {
-      setSearchQuery();
-    });
+    $scope.$on('$locationChangeSuccess', setSearchQuery);
     
     
     $scope.$watch('query', function (query) {

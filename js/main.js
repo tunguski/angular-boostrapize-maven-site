@@ -16,6 +16,7 @@
     this.splice(this.length-1,1);
     return top;
   };
+  
 })(jQuery);
 
 
@@ -37,6 +38,11 @@
   .controller('AppCtrl', function ($scope, $http, $location, pageCache, siteScanner, config) {
     $scope.scrollToTop = function () {
         $('html, body').animate({ scrollTop: 0 }, 100);
+    }
+    
+    
+    $scope.toggleFullWindow = function () {
+        $scope.fullWindow = !$scope.fullWindow;
     }
     
     
@@ -118,7 +124,7 @@
     
     $scope.themes = [
       { name: 'Bootstrap 3.3', 
-        href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
+        href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
         defaultHlTheme: 'xcode'
       }];
     angular.forEach([
@@ -254,6 +260,34 @@
         });
       }
     };
+  })
+  
+  
+  .directive('selectionNotePanel', function ($compile) {
+    return { 
+      restrict: 'E', 
+      replace: true,
+      template: '<div class="selection-note-panel">' + 
+                  '<textarea rows="5"></textarea>' + 
+                  '<button class="btn btn-primary">Save</button>' + 
+                  '<button class="btn btn-default">Cancel</button>' + 
+                  '' + 
+                  '' + 
+                  '' + 
+                  '' + 
+                '</div>',
+      link: function(scope, element, attrs) {
+      }
+    };
+  })
+  
+  
+  .run(function ($rootScope) {
+  // watch selection
+//   document.addEventListener('selectionchange', function (event) {
+//     var sel = this.getSelection();
+//     console.log('Selected text:', sel.rangeCount ? sel.getRangeAt(0).toString() : null);
+//   });
   })
   ;
 })();

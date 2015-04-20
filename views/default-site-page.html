@@ -14,6 +14,8 @@
 
   <div class="col-lg-2 col-sm-9 col-sm-offset-3 col-lg-offset-0 download-navigation" 
        ng-controller="DownloadCtrl" ng-class="{ 'visible-lg-block': isMenu }">
+    <selection-note-panel></selection-note-panel>
+    
     <div ng-repeat="element in elements" ng-class="{ collapsed: !visibility[$index] }" 
          ng-bind-html="element" ng-click="toggleCollapse($index, element)"></div>
   </div>
