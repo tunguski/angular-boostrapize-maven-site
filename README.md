@@ -56,3 +56,8 @@ That's all.
 If you want to use it with your own maven generated site, remember to 
 configure Apache that it proxy `/maven` site's subdirectory to your 
 generated site.
+
+# License
+
+[Apache License](LICENSE)
+Version 2.0, January 2004
