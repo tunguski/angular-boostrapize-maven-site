@@ -124,7 +124,7 @@
     
     $scope.themes = [
       { name: 'Bootstrap 3.3', 
-        href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
+        href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
         defaultHlTheme: 'xcode'
       }];
     angular.forEach([
