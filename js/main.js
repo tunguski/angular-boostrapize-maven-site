@@ -124,7 +124,7 @@
     
     $scope.themes = [
       { name: 'Bootstrap 3.3', 
-        href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
+        href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
         defaultHlTheme: 'xcode'
       }];
     angular.forEach([
@@ -217,7 +217,7 @@
       { title: "Hybrid", style: "hybrid" },
       { title: "Darkula", style: "darkula" }
     ], function (element) {
-      element.href = '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/' + element.style + '.min.css';
+      element.href = '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/' + element.style + '.min.css';
       element.name = element.title;
       $scope.hlThemes.push(element);
     });
