@@ -8,7 +8,10 @@
         var hash = $scope.hash;
 
         var mvnSite = $scope.mvn.site = $(pageSrc);
-        $scope.mvn.bodySections = mvnSite.find('#bodyColumn > .section > *');
+        $scope.mvn.bodySections = mvnSite.find(
+          '#bodyColumn > .section > *' 
+          // http://maven.apache.org/general.html introduced exception with dl outside section
+          + ', #bodyColumn > dl > *');
         
         if (mvnSite.find('#leftColumn .nav').length) {
           // side menu
@@ -64,6 +67,10 @@
         $rootScope.projectVersion = mvnSite.find('#projectVersion').text();
         $rootScope.title = '';
         mvnSite.find('.breadcrumb li:not(.divider):not(.pull-right) a').each(function () {
+          if ($(this).text().trim() === 'Apache'
+              || $(this).text().trim() === 'Maven') {
+            return;
+          }
           $rootScope.title = $rootScope.title + ' ' + $(this).text();
         });
         $rootScope.title = $rootScope.title.trim();
@@ -88,6 +95,17 @@
             $('.section > div > pre, .source > pre').each(function(i, block) {
               hljs.highlightBlock(block);
             });
+          });
+          
+          $('#main-navigation, #right-navigation').affix({
+            offset: {
+              top: function () {
+                return (this.top = $('#header-container').outerHeight(true))
+              },
+              bottom: function () {
+                return (this.bottom = $('footer').outerHeight(true))
+              }
+            }
           });
         });
       }

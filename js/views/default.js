@@ -15,6 +15,10 @@
         $rootScope.lastPublished = mvnSite.find('#breadcrumbs .xright').text();
         $rootScope.title = '';
         mvnSite.find('#breadcrumbs .xleft a').each(function () {
+          if ($(this).text().trim() === 'Apache'
+              || $(this).text().trim() === 'Maven') {
+            return;
+          }
           $rootScope.title = $rootScope.title + ' ' + $(this).text();
         });
         $rootScope.title = $rootScope.title.trim();
@@ -38,6 +42,17 @@
             $('pre').each(function(i, block) {
               hljs.highlightBlock(block);
             });
+          });
+          
+          $('#main-navigation, #right-navigation').affix({
+            offset: {
+              top: function () {
+                return (this.top = $('#header-container').outerHeight(true))
+              },
+              bottom: function () {
+                return (this.bottom = $('footer').outerHeight(true))
+              }
+            }
           });
         });
       }

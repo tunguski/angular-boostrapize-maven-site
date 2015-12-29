@@ -15,7 +15,7 @@
 
           // delay request by half second
           mvnRepository.queryFuture = $timeout(function () {
-            $http.get('/search?q=' + query + '&rows=10&wt=json')
+            $http.get('/search/select?q=' + query + '&rows=10&wt=json')
               .success(function (data) {
                 deferred.resolve(data);
               }).error(function (data) {
