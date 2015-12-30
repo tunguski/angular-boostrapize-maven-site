@@ -22,7 +22,7 @@
 
 
 (function() {
-  angular.module('abms', ['ui.bootstrap', 'ngSanitize'])
+  angular.module('abms', ['ui.bootstrap', 'ngSanitize', 'firebase'])
   
   
   .run(function ($rootScope) {

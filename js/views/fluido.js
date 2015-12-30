@@ -9,9 +9,8 @@
 
         var mvnSite = $scope.mvn.site = $(pageSrc);
         $scope.mvn.bodySections = mvnSite.find(
-          '#bodyColumn > .section > *' 
           // http://maven.apache.org/general.html introduced exception with dl outside section
-          + ', #bodyColumn > dl > *');
+          '#bodyColumn');
         
         if (mvnSite.find('#leftColumn .nav').length) {
           // side menu
@@ -74,6 +73,7 @@
           $rootScope.title = $rootScope.title + ' ' + $(this).text();
         });
         $rootScope.title = $rootScope.title.trim();
+        $rootScope.title = $rootScope.title || 'Apache Maven';
         // fixme: remove duplicated prefix if present - how to detect?
         
         // remove all images - for better site display
@@ -168,13 +168,18 @@
   })
   
   
-  .controller('FluidoContentCtrl', function ($scope) {
+  .controller('FluidoContentCtrl', function ($scope, $location, siteIndex) {
     $scope.executeWithSite('bodySections', function (mvn) {
       $scope.elements = [];
+      
+      var pageText = '';
 
       angular.forEach($scope.mvn.bodySections, function (element) {
         $scope.elements.push(angular.element(element).prop('outerHTML'));
+        pageText = pageText + ' \n ' + angular.element(element).text().trim();
       });
+
+      siteIndex.savePage($location.path(), pageText.trim());
     });
   })
   ;

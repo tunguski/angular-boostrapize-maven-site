@@ -13,7 +13,7 @@ You may see effect at [maven.matsuo-it.com](http://maven.matsuo-it.com).
 |                          | Responsive by design                                        |
 |                          | Skins from [bootswatch.com](http://bootswatch.com)! LocalStorage used for skin memory |
 |                          | [Bootstrap 3.3](http://getbootstrap.com) for layout         |
-|                          | [Angular 1.4](https://angularjs.org) for dynamic parts      |
+|                          | [Angular 1.5](https://angularjs.org) for dynamic parts      |
 |                          | Imitate dynamic menu folding - remember state between pages |
 | **Code highlight**       | Automatic code parts detection based on [highlightjs.org](https://highlightjs.org) |
 |                          | Code highlighting matching chosen skin                      |

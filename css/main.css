@@ -28,19 +28,16 @@ tt {
   border-radius: 4px;
 }
 
+.affix {
+  position: relative;
+}
+
 @media (min-width: 768px) {
   .affix {
       position: fixed;
       top: 20px;
   }
 }
-
-@media (max-width: 768px) {
-  .affix {
-      position: relative;
-  }
-}
-
 
 /* wtf ??? */
 

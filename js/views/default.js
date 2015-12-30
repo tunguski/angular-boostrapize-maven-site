@@ -22,6 +22,7 @@
           $rootScope.title = $rootScope.title + ' ' + $(this).text();
         });
         $rootScope.title = $rootScope.title.trim();
+        $rootScope.title = $rootScope.title || 'Apache Maven';
         
         // FIXME: remove all images - should leave images from content
         mvnSite.find('img').remove();
@@ -116,7 +117,7 @@
   })
   
   
-  .controller('ContentCtrl', function ($scope) {
+  .controller('ContentCtrl', function ($scope, $location, siteIndex) {
     $scope.executeWithSite('bodySections', function (mvn) {
       $scope.elements = [];
    
@@ -131,9 +132,14 @@
 //           });
 //       });
 
+      var pageText = '';
+      
       angular.forEach($scope.mvn.bodySections, function (element) {
         $scope.elements.push(angular.element(element).prop('outerHTML'));
+        pageText = pageText + ' \n ' + angular.element(element).text().trim();
       });
+      
+      siteIndex.savePage($location.path(), pageText.trim());
     });
   })
   
